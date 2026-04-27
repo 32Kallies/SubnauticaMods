@@ -49,7 +49,7 @@ public class WeatherSoundUpdater : MonoBehaviour
 
     private static State DetermineState()
     {
-        if (MainCamera.camera.transform.position.y < Ocean.GetOceanLevel() + (Player.main.IsInside() ? -5f : 0f))
+        if (MainCamera.camera.transform.position.y < Ocean.GetOceanLevel() + (Player.main.IsInside() ? -2f : 0f))
         {
             return State.Underwater;
         }
