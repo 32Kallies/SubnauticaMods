@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Nautilus.Utility;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -20,7 +19,7 @@ public class LightningSpawner : MonoBehaviour
     private float _timeSpawnLightningAgain;
 
     private static AnimationCurve _lightningShakeStrengthCurve =
-        new AnimationCurve(new Keyframe(0f, 1f), new Keyframe(1f, 0.1f));
+        new AnimationCurve(new Keyframe(0f, 0.7f), new Keyframe(1f, 0.1f));
 
     public bool useAltModel;
 
@@ -87,15 +86,21 @@ public class LightningSpawner : MonoBehaviour
         var delay = Mathf.Clamp(dist / 346f, 0f, 5f);
 
         yield return delay;
-        
-        Utils.PlayFMODAsset(Vector3.Distance(MainCamera.camera.transform.position, soundPosition) < 80
-                ? WeatherAudio.ThunderSoundsNear.GetRandomUnity().Asset
-                : WeatherAudio.ThunderSoundsFar.GetRandomUnity().Asset,
-            soundPosition);
+
+        var yPos = MainCamera.camera.transform.position.y;
+        if (yPos > Ocean.GetOceanLevel() - 12)
+        {
+            bool playNearSound = yPos > Ocean.GetOceanLevel() &&
+                                 Vector3.Distance(MainCamera.camera.transform.position, soundPosition) < 80;
+            Utils.PlayFMODAsset(playNearSound
+                    ? WeatherAudio.ThunderSoundsNear.GetRandomUnity().Asset
+                    : WeatherAudio.ThunderSoundsFar.GetRandomUnity().Asset,
+                soundPosition);
+        }
 
         var baseShakeStrength = _lightningShakeStrengthCurve.Evaluate(Mathf.Clamp01(dist / 1000));
         
-        if (MainCamera.camera.transform.position.y > Ocean.GetOceanLevel() - 25)
-            MainCameraControl.main.ShakeCamera(baseShakeStrength + Random.Range(-0.1f, 0.1f), Random.Range(1f, 1.3f));
+        if (yPos > Ocean.GetOceanLevel() - 8)
+            MainCameraControl.main.ShakeCamera(baseShakeStrength + Random.Range(-0.1f, 0.1f), Random.Range(1.7f, 2f), MainCameraControl.ShakeMode.Sqrt);
     } 
 }
