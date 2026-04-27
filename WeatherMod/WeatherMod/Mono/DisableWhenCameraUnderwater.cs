@@ -19,7 +19,19 @@ public class DisableWhenCameraUnderwater : MonoBehaviour
 
     private bool GetIsUnderWater()
     {
-        return MainCamera.camera.transform.position.y < Ocean.GetOceanLevel();
+        return MainCamera.camera.transform.position.y < GetWaterLevelForUnderWater();
+    }
+
+    private float GetWaterLevelForUnderWater()
+    {
+        var level = Ocean.GetOceanLevel();
+        
+        if (Player.main.IsInBase())
+        {
+            level -= 0.5f;
+        }
+
+        return level;
     }
     
     private void Update()
