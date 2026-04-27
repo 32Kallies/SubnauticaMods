@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using WeatherMod.WeatherEvents;
 using Random = UnityEngine.Random;
 
 namespace WeatherMod.Mono;
 
-public class CustomWeatherManager : MonoBehaviour
+public class CustomWeatherManager : MonoBehaviour, IScheduledUpdateBehaviour
 {
     public static CustomWeatherManager Main;
     
@@ -21,7 +22,8 @@ public class CustomWeatherManager : MonoBehaviour
         new LightRain(),
         new Thunderstorm(),
         new Foggy(),
-        new Windy()
+        new Windy(),
+        new Drizzle()
     };
     
     internal static readonly List<WeatherEvent> WeatherEvents = new() {
@@ -30,7 +32,8 @@ public class CustomWeatherManager : MonoBehaviour
         new Thunderstorm(),
         new GoldenThunderstorm(),
         new Foggy(),
-        new Windy()
+        new Windy(),
+        new Drizzle()
     };
     
     private void Awake()
@@ -67,11 +70,28 @@ public class CustomWeatherManager : MonoBehaviour
         return ActiveWeatherEvents[Random.Range(0, ActiveWeatherEvents.Count)];
     }
 
-    private void Update()
+    private void OnEnable()
+    {
+        UpdateSchedulerUtils.Register(this);
+    }
+
+    private void OnDisable()
+    {
+        UpdateSchedulerUtils.Deregister(this);
+    }
+
+    public string GetProfileTag()
+    {
+        return "CustomWeatherManager";
+    }
+
+    public void ScheduledUpdate()
     {
         if (Time.time > _timeNextWeatherChange)
         {
             SetWeather(GetRandomWeatherEvent());
         }
     }
+
+    public int scheduledUpdateIndex { get; set; }
 }
