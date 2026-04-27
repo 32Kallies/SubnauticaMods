@@ -15,6 +15,7 @@ public class LightningSpawner : MonoBehaviour
     private const float SpawnHeightMin = 1f;
     private const float SpawnHeightVariationMax = 50;
     private const float SpawnHeightAbsMax = 240;
+    private const float LightningBrightness = 2;
 
     private float _timeSpawnLightningAgain;
 
@@ -71,6 +72,7 @@ public class LightningSpawner : MonoBehaviour
         {
             var m = r.material;
             m.shader = MaterialUtils.Shaders.ParticlesUBER;
+            m.color = new Color(m.color.r * LightningBrightness, m.color.g * LightningBrightness, m.color.b * LightningBrightness, m.color.a);
         }
 
         UWE.CoroutineHost.StartCoroutine(PlayThunderCoroutine(position));
