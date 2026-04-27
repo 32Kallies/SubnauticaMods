@@ -8,8 +8,8 @@ namespace WeatherMod.Mono;
 
 public class LightningSpawner : MonoBehaviour
 {
-    private const float MinInterval = 4f;
-    private const float MaxInterval = 10f;
+    private const float MinInterval = 12;
+    private const float MaxInterval = 17;
     private const float MinDistanceFromCamera = 20f;
     private const float MaxDistanceFromCamera = 800f;
     private const float SpawnHeightMin = 1f;
