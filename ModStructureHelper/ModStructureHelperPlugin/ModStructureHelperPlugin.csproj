@@ -3,7 +3,7 @@
     <PropertyGroup>
         <TargetFramework>net472</TargetFramework>
         <AssemblyName>ModStructureHelperPlugin</AssemblyName>
-        <Version>1.5.1</Version>
+        <Version>1.5.2</Version>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <LangVersion>11</LangVersion>
         <RootNamespace>ModStructureHelperPlugin</RootNamespace>

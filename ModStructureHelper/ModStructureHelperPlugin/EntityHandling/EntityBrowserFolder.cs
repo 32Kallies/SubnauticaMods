@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ModStructureHelperPlugin.EntityHandling.Icons;
 using ModStructureHelperPlugin.UI;
@@ -8,11 +9,20 @@ namespace ModStructureHelperPlugin.EntityHandling;
 
 public class EntityBrowserFolder : EntityBrowserEntryBase
 {
-    private string _name;
+    private readonly string _name;
 
     public EntityBrowserFolder(string path) : base(path)
     {
-        _name = System.IO.Path.GetFileName(path);
+        try
+        {
+            _name = System.IO.Path.GetFileName(path);
+        }
+        catch (ArgumentException e)
+        {
+            Plugin.Logger.LogError(e.Message + " Path :" + path);
+            _name = "INVALID PATH";
+        }
+        
         if (string.IsNullOrEmpty(_name))
         {
             _name = "Root";
