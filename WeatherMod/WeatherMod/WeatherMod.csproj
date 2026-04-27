@@ -3,7 +3,7 @@
     <PropertyGroup>
         <TargetFramework>net472</TargetFramework>
         <AssemblyName>WeatherMod</AssemblyName>
-        <Version>0.0.8</Version>
+        <Version>0.1.0</Version>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <LangVersion>11</LangVersion>
         <RootNamespace>WeatherMod</RootNamespace>
@@ -21,7 +21,7 @@
         <PackageReference Include="BepInEx.Core" Version="5.4.21"/>
         <PackageReference Include="BepInEx.PluginInfoProps" Version="1.1.0"/>
         <PackageReference Include="UnityEngine.Modules" Version="2019.4.36" IncludeAssets="compile"/>
-        <PackageReference Include="Subnautica.GameLibs" Version="71288.0.0-r.0"/>
+        <PackageReference Include="Subnautica.GameLibs" Version="82304.0.0-r.0"/>
         <PackageReference Include="PolySharp" Version="1.13.1"/>
         <PackageReference Include="Subnautica.Nautilus" Version="1.*-*" PrivateAssets="all"/>
     </ItemGroup>
