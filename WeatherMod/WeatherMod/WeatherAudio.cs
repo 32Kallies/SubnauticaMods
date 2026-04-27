@@ -19,7 +19,8 @@ public static class WeatherAudio
         new ModSound("ThunderFar_1"),
         new ModSound("ThunderFar_2"),
         new ModSound("ThunderFar_3"),
-        new ModSound("ThunderFar_4")
+        new ModSound("ThunderFar_4"),
+        new ModSound("ThunderFar_5")
     };
 
     public static ModSound ThunderstormLoop { get; } = new ModSound("ThunderstormLoop4", "ThunderstormLoopOutdoors");
