@@ -1,4 +1,4 @@
-﻿using DeExtinction.Prefabs.Creatures;
+using DeExtinction.Prefabs.Creatures;
 using ECCLibrary;
 using ECCLibrary.Data;
 using Nautilus.Assets;
@@ -358,6 +358,7 @@ internal static class CreaturePrefabManager
                 eggMaterial.SetFloat("_SpecInt", 5);
                 eggMaterial.SetFloat("_Shininess", 7);
                 eggMaterial.SetFloat("_Fresnel", 0);
+                eggMaterial.SetFloat("_MyCullVariable", 0);
                 eggMaterial.EnableKeyword("MARMO_EMISSION");
                 eggMaterial.SetFloat("_GlowStrength", 0);
                 eggMaterial.SetFloat("_GlowStrengthNight", 0);
@@ -376,6 +377,20 @@ internal static class CreaturePrefabManager
                     material.SetFloat("_Fresnel", 0.5f);
                     material.SetFloat("_MyCullVariable", 0);
 
+                }
+            };
+        }
+        else if (classId == "GulperEgg")
+        {
+            eggTemplate.ModifyPrefab += go =>
+            {
+                foreach (var renderer in go.GetComponentsInChildren<Renderer>())
+                {
+                    var material = renderer.material;
+                    if (material.name.Contains("GulperEggB_Transparent"))
+                    {
+                        material.SetFloat("_MyCullVariable", 0);
+                    }
                 }
             };
         }

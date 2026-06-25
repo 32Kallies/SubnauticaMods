@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using DeExtinction.MaterialModifiers;
 using DeExtinction.Mono;
 using ECCLibrary;
@@ -74,5 +74,11 @@ public class PyrambassisPrefab : CreatureAsset
     protected override void ApplyMaterials(GameObject prefab)
     {
         MaterialUtils.ApplySNShaders(prefab, 2, 3, 3, new FresnelModifier(0.8f), new ColorModifier(new Color(1, 1, 1, 2)), new IgnoreParticleRenderers());
+
+        foreach (var renderer in prefab.GetComponentsInChildren<Renderer>())
+        {
+            var material = renderer.material;
+            material.SetFloat("_MyCullVariable", 0);
+        }
     }
 }
