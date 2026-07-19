@@ -39,8 +39,8 @@ public class StaticLabProp : IEpicPrefabFactory
                     yield break;
                 }
                 var renderer = prefab.GetComponentInChildren<Renderer>();
-                var materials = renderer.materials;
-                materials[1] = doorFrame.GetComponentInChildren<Renderer>().materials[0];
+                var materials = renderer.sharedMaterials;
+                materials[1] = FixDarkMaterial(doorFrame.GetComponentInChildren<Renderer>().materials[0]);
                 renderer.materials = materials;
             }
             else if (name.Contains("vent"))
@@ -57,12 +57,22 @@ public class StaticLabProp : IEpicPrefabFactory
                     .Find("explorable_wreckage_modular_room_01/room_01_interior").GetComponent<Renderer>();
                 var renderer = prefab.GetComponentInChildren<Renderer>();
                 var materials = renderer.materials;
-                materials[1] = interiorRenderer.materials[3]; // horizontal vent
-                materials[2] = interiorRenderer.materials[5]; // exterior
-                materials[3] = interiorRenderer.materials[4]; // alpha
+                materials[1] = FixDarkMaterial(interiorRenderer.sharedMaterials[3]); // horizontal vent
+                materials[2] = FixDarkMaterial(interiorRenderer.sharedMaterials[5]); // exterior
+                materials[3] = FixDarkMaterial(interiorRenderer.sharedMaterials[4]); // alpha
                 renderer.materials = materials;
             }
         }
+    }
+
+    private static Material FixDarkMaterial(Material original)
+    {
+        var material = new Material(original);
+        material.SetFloat("_EmissionLM", 0);
+        material.SetFloat("_EmissionLMNight", 0);
+        material.SetFloat("_LightmapStrength", 0);
+        material.color = Color.white;
+        return material;
     }
 
     private IEnumerator SetUpLights(GameObject prefab, LoadedPrefabRegistrationData.Parameter[] parameters)
