@@ -294,7 +294,7 @@ public class Plugin : BaseUnityPlugin
         frozenSclBiomePrefab.SetGameObject(frozenSclBiomeTemplate);
         frozenSclBiomePrefab.Register();
 
-        // Register precursor entities
+        // -- PRECURSOR PROPS --
 
         var drfLabClassId = "258d971e-48b1-4cef-955c-a0222586d0c5";
         var drfObservationRoomClassId = "1607277c-65f8-4c82-b739-2c6fd937e0ee";
@@ -358,6 +358,15 @@ public class Plugin : BaseUnityPlugin
         new StrippedPrecursorProp("PrecursorWarperFactorySupport", warperMachineClassId,
             "mesh/Precursor_Lab_Warper_Support",
             StrippedPrecursorProp.CollisionsMode.None).Register();
+        
+        // More precursor props
+        
+        CollisionLessPrecursorProps.RegisterAll();
+        new StrippedPrecursorProp("TeleporterDecoration", "fecb50b0-eb8a-4ca1-b95b-356fc0f4ac32",
+            "GameObject (2)",
+            StrippedPrecursorProp.CollisionsMode.None,
+            false).Register();
+        AnimatedLightObelisk.Register();
         
         // Corpses
         
