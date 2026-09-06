@@ -8,7 +8,7 @@ public class SetWeatherPausedReader : ModMessageReader
     {
         if (message.Subject != "SetWeatherPaused") return;
         
-        var paused = (bool)message.Contents[1];
+        var paused = (bool)message.Contents[0];
         
         WeatherAPI.SetWeatherPaused(paused);
     }
