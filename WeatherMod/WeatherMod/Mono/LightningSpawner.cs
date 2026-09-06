@@ -34,13 +34,17 @@ public class LightningSpawner : MonoBehaviour
     private void Update()
     {
         if (Time.time < _timeSpawnLightningAgain) return;
+        
+        if (Random.value < Plugin.Options.LightningStrikeChance / 100f)
+        {
+            var spawnAngle = Random.value * Mathf.PI * 2f;
+            var dist = Random.Range(MinDistanceFromCamera, MaxDistanceFromCamera);
 
-        var spawnAngle = Random.value * Mathf.PI * 2f;
-        var dist = Random.Range(MinDistanceFromCamera, MaxDistanceFromCamera);
-
-        SpawnLightning(
-            MainCamera.camera.transform.position + new Vector3(Mathf.Cos(spawnAngle), 0, Mathf.Sin(spawnAngle)) * dist,
-            useAltModel);
+            SpawnLightning(
+                MainCamera.camera.transform.position +
+                new Vector3(Mathf.Cos(spawnAngle), 0, Mathf.Sin(spawnAngle)) * dist,
+                useAltModel);
+        }
 
         ResetTimer();
     }
@@ -99,8 +103,14 @@ public class LightningSpawner : MonoBehaviour
         }
 
         var baseShakeStrength = _lightningShakeStrengthCurve.Evaluate(Mathf.Clamp01(dist / 1000));
-        
-        if (yPos > Ocean.GetOceanLevel() - 8)
-            MainCameraControl.main.ShakeCamera(baseShakeStrength + Random.Range(-0.1f, 0.1f), Random.Range(1.7f, 2f), MainCameraControl.ShakeMode.Sqrt);
+
+        if (baseShakeStrength > 0)
+        {
+            baseShakeStrength += Random.Range(-0.1f, 0.1f);
+            float screenShakeStrength = baseShakeStrength * (Plugin.Options.ScreenShakeMultiplier / 100f);
+            if (baseShakeStrength > 0.05f && yPos > Ocean.GetOceanLevel() - 8)
+                MainCameraControl.main.ShakeCamera(screenShakeStrength,
+                    Random.Range(1.8f, 2.1f), MainCameraControl.ShakeMode.Sqrt);
+        }
     } 
 }

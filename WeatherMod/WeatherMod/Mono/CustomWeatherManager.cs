@@ -11,7 +11,8 @@ public class CustomWeatherManager : MonoBehaviour, IScheduledUpdateBehaviour
     public static CustomWeatherManager Main;
     
     private float _weatherSeed;
-    private float _timeNextWeatherChange;
+    private float _weatherStartTime;
+    private float _unscaledWeatherDuration;
 
     private WeatherSoundUpdater _soundUpdater;
 
@@ -61,8 +62,9 @@ public class CustomWeatherManager : MonoBehaviour, IScheduledUpdateBehaviour
         CurrentEvent = newEvent;
         
         _soundUpdater.SetActiveAudio(newEvent.AmbientSound);
-        
-        _timeNextWeatherChange = Time.time + Random.Range(newEvent.MinDuration, newEvent.MaxDuration);
+
+        _weatherStartTime = Time.time;
+        _unscaledWeatherDuration = Random.Range(newEvent.MinDuration, newEvent.MaxDuration);
     }
     
     private WeatherEvent GetRandomWeatherEvent()
@@ -87,7 +89,7 @@ public class CustomWeatherManager : MonoBehaviour, IScheduledUpdateBehaviour
 
     public void ScheduledUpdate()
     {
-        if (Time.time > _timeNextWeatherChange)
+        if (Time.time > _weatherStartTime + _unscaledWeatherDuration * Plugin.Options.WeatherEventDurationMultiplier)
         {
             SetWeather(GetRandomWeatherEvent());
         }

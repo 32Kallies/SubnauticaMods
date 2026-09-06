@@ -25,6 +25,10 @@ public class LightRain : WeatherEvent
         
         effectPrefab.AddComponent<WaterSplashVfxController>().affectedTransform =
             effectPrefab.transform.Find("WaterSplashes");
+        
+        effectPrefab.transform.Find("Freddy").gameObject.SetActive(Plugin.Options.Freddy);
+        
+        effectPrefab.transform.Find("CloseRain").gameObject.EnsureComponent<UpdateRainParticleDensity>();
     }
 
     protected override void OnEventEnd(GameObject effectPrefab)

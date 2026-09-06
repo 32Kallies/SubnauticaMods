@@ -22,6 +22,8 @@ internal class Plugin : BaseUnityPlugin
 
     public static ModInbox Inbox { get; } = new ModInbox(PluginInfo.PLUGIN_GUID);
 
+    internal static WeatherOptions Options { get; } = OptionsPanelHandler.RegisterModOptions<WeatherOptions>();
+
     private void Awake()
     {
         // set project-scoped logger instance
