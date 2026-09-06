@@ -9,6 +9,8 @@ public class UpdateRainParticleDensity : MonoBehaviour, IScheduledUpdateBehaviou
     private int _defaultMaxParticles;
     private float _defaultEmissionRate;
     private float _lastMultiplier = 1f;
+    private bool _hasCollisions;
+    private bool _lastCollisionsState;
     
     public int scheduledUpdateIndex { get; set; }
 
@@ -17,6 +19,8 @@ public class UpdateRainParticleDensity : MonoBehaviour, IScheduledUpdateBehaviou
         if (system == null) system = GetComponent<ParticleSystem>();
         _defaultEmissionRate = system.emission.rateOverTimeMultiplier;
         _defaultMaxParticles = system.main.maxParticles;
+        _hasCollisions = system.collision.enabled;
+        _lastCollisionsState = _hasCollisions;
         ChangeIfNeeded();
     }
 
@@ -32,6 +36,17 @@ public class UpdateRainParticleDensity : MonoBehaviour, IScheduledUpdateBehaviou
 
     private void ChangeIfNeeded()
     {
+        if (_hasCollisions)
+        {
+            bool collisionsSetting = Plugin.Options.RainHasCollisions;
+            if (collisionsSetting != _lastCollisionsState)
+            {
+                var collision = system.collision;
+                collision.enabled = collisionsSetting;
+                _lastCollisionsState = collisionsSetting;
+            }
+        }
+        
         var multiplier = Plugin.Options.RainDensityMultiplier;
         if (Mathf.Approximately(multiplier, _lastMultiplier)) return;
         
