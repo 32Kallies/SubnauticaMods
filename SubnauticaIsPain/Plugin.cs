@@ -1,7 +1,5 @@
-﻿using System.Reflection;
-using BepInEx;
+﻿using BepInEx;
 using BepInEx.Logging;
-using HarmonyLib;
 using Nautilus.Handlers;
 
 namespace SubnauticaIsPain;
@@ -12,9 +10,8 @@ public class Plugin : BaseUnityPlugin
 {
     public new static ManualLogSource Logger { get; private set; }
 
-    private static Assembly Assembly { get; } = Assembly.GetExecutingAssembly();
-
-    private static (string, string)[] _entries =
+    // It might be a good idea to make this into an external JSON file so people can customize it
+    private static readonly (string, string)[] Translations =
     {
         ("Play", "ENDURE THE SUFFERING"),
         ("NewGame", "CHOOSE YOUR PUNISHMENT"),
@@ -48,7 +45,7 @@ public class Plugin : BaseUnityPlugin
 
     private void RegisterLocalization()
     {
-        foreach (var entry in _entries)
+        foreach (var entry in Translations)
         {
             LanguageHandler.SetLanguageLine(entry.Item1, entry.Item2);
         }
