@@ -4,6 +4,8 @@ namespace PrawnSuitSpeedModule.Mono;
 
 internal class PrawnSuitSpeedHandler : MonoBehaviour
 {
+    public float speedPerModule = 0.5f;
+    
     private Exosuit exosuit;
 
     private float defaultGroundForceMultiplier = 4f;
@@ -21,8 +23,10 @@ internal class PrawnSuitSpeedHandler : MonoBehaviour
         exosuit.onGroundForceMultiplier = defaultGroundForceMultiplier * GetForceMultiplier(exosuit);
     }
     
-    private static float GetForceMultiplier(Exosuit exosuit)
+    private  float GetForceMultiplier(Exosuit exosuit)
     {
-        return Mathf.Clamp(exosuit.modules.GetCount(Items.Equipment.PrawnSuitSpeedUpgrade.Info.TechType) + 1, 1, 10);
+        return Mathf.Clamp(
+            exosuit.modules.GetCount(Items.Equipment.PrawnSuitSpeedUpgrade.Info.TechType) * speedPerModule + 1,
+            1, 10);
     }
 }
