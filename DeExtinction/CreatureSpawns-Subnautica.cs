@@ -889,37 +889,31 @@ public static partial class CreatureSpawns
                 {
                     biome = BiomeType.GrandReef_CaveFloor,
                     count = 1,
-                    probability = 0.5f
+                    probability = 0.2f
                 },
                 new()
                 {
                     biome = BiomeType.Mountains_CaveFloor,
                     count = 1,
-                    probability = 3f
+                    probability = 1f
                 },
                 new()
                 {
                     biome = BiomeType.Mesas_Top,
                     count = 1,
-                    probability = 5f
+                    probability = 2f
                 },
                 new()
                 {
                     biome = BiomeType.CragField_Ground,
                     count = 1,
-                    probability = 0.2f
-                },
-                new()
-                {
-                    biome = BiomeType.CragField_Rock,
-                    count = 1,
-                    probability = 0.2f
+                    probability = 0.04f
                 },
                 new()
                 {
                     biome = BiomeType.CragField_Sand,
                     count = 1,
-                    probability = 0.2f
+                    probability = 0.04f
                 }
             });
 

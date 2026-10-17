@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<TargetFramework>net472</TargetFramework>
 		<AssemblyName>DeExtinction</AssemblyName>
-		<Version>2.2.1</Version>
+		<Version>2.2.2</Version>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<LangVersion>11</LangVersion>
 		<RootNamespace>DeExtinction</RootNamespace>
