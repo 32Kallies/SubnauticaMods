@@ -383,6 +383,7 @@ public class Plugin : BaseUnityPlugin
         new CreatureCorpse("Warper", TechType.Warper, LargeWorldEntity.CellLevel.Medium).Register();
         new CreatureCorpse("RiverProwler", TechType.SpineEel, LargeWorldEntity.CellLevel.Medium).Register();
         new CreatureCorpse("Ampeel", TechType.Shocker, LargeWorldEntity.CellLevel.Medium).Register();
+        new CreatureCorpse("SeaTreader", TechType.SeaTreader, LargeWorldEntity.CellLevel.Far).Register();
 
         // VFX
         

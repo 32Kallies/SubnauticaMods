@@ -66,6 +66,11 @@ public class CreatureCorpse
             Object.DestroyImmediate(collider.gameObject.GetComponent<OnTouch>());
             Object.DestroyImmediate(collider);
         }
+
+        foreach (var emitter in prefab.GetComponentsInChildren<FMOD_CustomEmitter>(true))
+        {
+            Object.DestroyImmediate(emitter);
+        }
         
         PrefabUtils.AddBasicComponents(prefab, _info.ClassID, _info.TechType, _cellLevel);
         result.Set(prefab);
