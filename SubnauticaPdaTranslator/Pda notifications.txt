@@ -1,0 +1,60 @@
+==================================
+
+On Player.main
+
+------
+Survival.foodWarningSounds
+
+0
+FoodLow
+event:/player/food_low
+1
+FoodCritical
+event:/player/food_critical
+2
+FoodVeryLow
+event:/player/food_very_low
+
+------
+Survival.waterWarningSounds
+
+0
+WaterLow
+event:/player/water_low
+
+1
+WaterCritical
+event:/player/water_critical
+
+2
+WaterVeryLow
+event:/player/water_very_low
+
+Survival.vitalsOkNotification
+VitalsOk
+event:/player/vitals_ok
+
+==================================
+
+On LowOxygenAlert.alertList
+
+0
+notification: OxygenWarning30
+soundSFX: event:/player/oxygen_30_sec
+
+1
+notification: OxygenWarning10
+soundSFX: event:/player/oxygen_10_sec
+
+==================================
+
+KnownTech: analysisTech (dictionary)
+
+unlockMessage: NotificationCreatureDiscovered
+unlockSound: event:/player/new_creature
+
+unlockMessage: NotificationBlueprintUnlocked
+unlockSound: event:/tools/scanner/new_blueprint
+
+
+=================================

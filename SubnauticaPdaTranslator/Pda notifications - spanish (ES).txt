@@ -1,0 +1,67 @@
+==================================
+
+On Player.main
+
+------
+Survival.foodWarningSounds
+
+0
+FoodLow
+Toma de calor\u00edas recomendada.
+event:/player/food_low
+1
+FoodCritical
+Emergencia, inanici\u00f3n inminente. Busca tomar calor\u00edas inmediatamente.
+event:/player/food_critical
+2
+FoodVeryLow
+Busca tomar calor\u00edas.
+event:/player/food_very_low
+
+------
+Survival.waterWarningSounds
+
+0
+WaterLow
+Busca tomar l\u00edquidos.
+event:/player/water_low
+
+1
+WaterCritical
+Buscar tomar l\u00edquidos inmediatamente.
+event:/player/water_critical
+
+2
+WaterVeryLow
+Busca tomar l\u00edquidos.
+event:/player/water_very_low
+
+Survival.vitalsOkNotification
+VitalsOk
+Signos vitales estabiliz\u00e1ndose.
+event:/player/vitals_ok
+
+==================================
+
+On LowOxygenAlert.alertList
+
+0
+notification: OxygenWarning30
+soundSFX: event:/player/oxygen_30_sec
+
+1
+notification: OxygenWarning10
+soundSFX: event:/player/oxygen_10_sec
+
+==================================
+
+KnownTech: analysisTech (dictionary)
+
+unlockMessage: NotificationCreatureDiscovered
+unlockSound: event:/player/new_creature
+
+unlockMessage: NotificationBlueprintUnlocked
+unlockSound: event:/tools/scanner/new_blueprint
+
+
+=================================
