@@ -71,3 +71,9 @@ soundSFX: event:/player/depth_200
 
 
 =================================
+
+PDAEncyclopedia.mapping
+
+NewPdaData (not a real localization key)
+Integrating new PDA data
+sound: event:/loot/new_PDA_data

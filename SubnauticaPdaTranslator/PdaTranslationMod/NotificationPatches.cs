@@ -48,4 +48,15 @@ public static class NotificationPatches
         if (Plugin.TranslatedDialogue.TryGetValue(entry.text, out var newSound) && entry.sound != null)
             entry.sound = newSound.asset;
     }
+    
+    [HarmonyPrefix]
+    [HarmonyPatch(typeof(PDAEncyclopedia), nameof(PDAEncyclopedia.GetEntryData))]
+    private static void PdaUnlockPatch(string key)
+    {
+        if (PDAEncyclopedia.mapping != null && PDAEncyclopedia.mapping.TryGetValue(key, out var entryData))
+        {
+            if (Plugin.TranslatedDialogue.TryGetValue("NewPdaData", out var newSound))
+                entryData.sound = newSound.asset;
+        }
+    }
 }

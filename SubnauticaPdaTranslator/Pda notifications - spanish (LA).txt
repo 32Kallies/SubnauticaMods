@@ -1,0 +1,73 @@
+==================================
+
+On Player.main
+
+------
+Survival.foodWarningSounds
+
+0
+FoodLow - Se recomienda consumir calor\u00edas.
+event:/player/food_low
+1
+FoodCritical - Emergencia, inanici\u00f3n inminente. Busca una fuente de calor\u00edas de inmediato.
+event:/player/food_critical
+2
+FoodVeryLow - Busca una fuente de calor\u00edas.
+event:/player/food_very_low
+
+------
+Survival.waterWarningSounds
+
+0
+WaterLow - Consume l\u00edquidos.
+event:/player/water_low
+
+1
+WaterCritical - Consume l\u00edquidos de inmediato.
+event:/player/water_critical
+
+2
+WaterVeryLow - Consume l\u00edquidos.
+event:/player/water_very_low
+
+Survival.vitalsOkNotification
+VitalsOk - Estabilizando signos vitales.
+event:/player/vitals_ok
+
+==================================
+
+On LowOxygenAlert.alertList
+
+0
+notification: OxygenWarning30 - 30 segundos
+soundSFX: event:/player/oxygen_30_sec
+
+1
+notification: OxygenWarning10 - Ox\u00edgeno
+soundSFX: event:/player/oxygen_10_sec
+
+==================================
+
+KnownTech: analysisTech (dictionary)
+
+unlockMessage: NotificationCreatureDiscovered - NUEVA FORMA DE VIDA DESCUBIERTA
+unlockSound: event:/player/new_creature
+
+unlockMessage: NotificationBlueprintUnlocked - NUEVO PLANO SINTETIZADO
+unlockSound: event:/tools/scanner/new_blueprint
+
+
+=================================
+
+RebreatherDepthWarnings.alerts
+
+0
+notification: DepthWarning100 - has descendido m\u00e1s de 100\u00a0metros. Disminuy\u00f3 la eficacia del ox\u00edgeno.
+soundSFX: event:/player/depth_100
+
+1
+notification: DepthWarning200 - has descendido m\u00e1s de 200\u00a0metros. Disminuy\u00f3 la eficacia del ox\u00edgeno
+soundSFX: event:/player/depth_200
+
+
+=================================
