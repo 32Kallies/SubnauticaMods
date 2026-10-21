@@ -34,7 +34,7 @@ public class Plugin : BaseUnityPlugin
         // set project-scoped logger instance
         Logger = base.Logger;
         
-        WaitScreenHandler.RegisterAsyncLoadTask(PluginInfo.PLUGIN_NAME, LoadMod);
+        WaitScreenHandler.RegisterEarlyAsyncLoadTask(PluginInfo.PLUGIN_NAME, LoadMod);
         
         // register harmony patches, if there are any
         Harmony.CreateAndPatchAll(Assembly, $"{PluginInfo.PLUGIN_GUID}");
@@ -59,24 +59,45 @@ public class Plugin : BaseUnityPlugin
         {
             try
             {
-                var fileName = Path.GetFileNameWithoutExtension(file);
-                if (!LocalizedEntries.TryGetValue(fileName, out _)) // dispose the entry data as it's unneeded
+                var key = Path.GetFileNameWithoutExtension(file);
+                if (!LocalizedEntries.TryGetValue(key, out _)) // dispose the entry data as it's unneeded
                 {
-                    Logger.LogError($"Did not find log entry information for log file {fileName} in JSON");
+                    Logger.LogError($"Did not find log entry information for log file {key} in JSON");
                     continue;
                 }
-                var sound = AudioUtils.CreateSound(file, AudioUtils.StandardSoundModes_2D);
-                var id = string.Format(FmodAssetFormat, fileName);
-                CustomSoundHandler.RegisterCustomSound(id, sound, AudioUtils.BusPaths.PDAVoice);
-
-                FMODAsset newAsset = AudioUtils.GetFmodAsset(id);
-                TranslatedDialogue.Add(id, new TranslatedDialogue(id, newAsset));
+                RegisterPdaSound(key, file);
             }
             catch (Exception e)
             {
                 Logger.LogError($"Exception thrown while loading sound from file '{file}': " + e);
             }
         }
+
+        yield return null;
+        
+        // Load ALL sounds in the notifications folder
+        foreach (string file in Directory.GetFiles(GetNotificationsFolderPath()))
+        {
+            try
+            {
+                var key = Path.GetFileNameWithoutExtension(file);
+                RegisterPdaSound(key, file);
+            }
+            catch (Exception e)
+            {
+                Logger.LogError($"Exception thrown while loading sound from file '{file}': " + e);
+            }
+        }
+    }
+
+    private void RegisterPdaSound(string key, string soundFile)
+    {
+        var sound = AudioUtils.CreateSound(soundFile, AudioUtils.StandardSoundModes_2D);
+        var id = string.Format(FmodAssetFormat, key);
+        CustomSoundHandler.RegisterCustomSound(id, sound, AudioUtils.BusPaths.PDAVoice);
+
+        FMODAsset newAsset = AudioUtils.GetFmodAsset(id);
+        TranslatedDialogue.Add(key, new TranslatedDialogue(key, newAsset));
     }
 
     private string GetModFolderPath()

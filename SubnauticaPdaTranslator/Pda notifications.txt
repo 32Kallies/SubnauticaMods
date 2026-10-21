@@ -58,3 +58,16 @@ unlockSound: event:/tools/scanner/new_blueprint
 
 
 =================================
+
+RebreatherDepthWarnings.alerts
+
+0
+notification: DepthWarning100
+soundSFX: event:/player/depth_100
+
+1
+notification: DepthWarning200
+soundSFX: event:/player/depth_200
+
+
+=================================

@@ -63,5 +63,17 @@ unlockSound: event:/player/new_creature
 unlockMessage: NotificationBlueprintUnlocked
 unlockSound: event:/tools/scanner/new_blueprint
 
+=================================
+
+RebreatherDepthWarnings.alerts
+
+0
+notification: DepthWarning100 - Aviso: Pasando los 100 metros. Menor eficiencia respiratoria.
+soundSFX: event:/player/depth_100
+
+1
+notification: DepthWarning200 - Aviso: Pasando los 200 metros. Eficiencia respiratoria enormemente reducida.
+soundSFX: event:/player/depth_200
+
 
 =================================

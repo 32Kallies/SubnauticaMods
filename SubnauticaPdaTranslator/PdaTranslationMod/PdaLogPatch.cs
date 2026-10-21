@@ -9,7 +9,6 @@ public static class PdaLogPatch
     [HarmonyPatch(nameof(PDALog.Initialize))]
     private static void ReplaceMappings()
     {
-        ErrorMessage.AddMessage("replacing mappings");
         foreach (var logEntry in PDALog.mapping)
         {
             if (logEntry.Value == null) continue;
@@ -18,6 +17,5 @@ public static class PdaLogPatch
                 logEntry.Value.sound = translation.asset;
             }
         }
-        ErrorMessage.AddMessage("replaced mappings");
     }
 }
