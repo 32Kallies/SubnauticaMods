@@ -77,3 +77,13 @@ PDAEncyclopedia.mapping
 NewPdaData (not a real localization key)
 Integrating new PDA data
 sound: event:/loot/new_PDA_data
+
+================================
+
+Mobile vehicle bay "must be constructed in deeper water"
+????
+
+===============================
+
+Signal unlock "Signal location added to PDA"
+?????

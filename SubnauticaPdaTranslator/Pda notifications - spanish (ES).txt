@@ -47,10 +47,12 @@ On LowOxygenAlert.alertList
 
 0
 notification: OxygenWarning30
+Ox\u00edgeno.
 soundSFX: event:/player/oxygen_30_sec
 
 1
 notification: OxygenWarning10
+30 segundos
 soundSFX: event:/player/oxygen_10_sec
 
 ==================================
@@ -58,9 +60,11 @@ soundSFX: event:/player/oxygen_10_sec
 KnownTech: analysisTech (dictionary)
 
 unlockMessage: NotificationCreatureDiscovered
+Nueva forma de vida descubierta
 unlockSound: event:/player/new_creature
 
 unlockMessage: NotificationBlueprintUnlocked
+Nuevo plano sintetizado
 unlockSound: event:/tools/scanner/new_blueprint
 
 =================================

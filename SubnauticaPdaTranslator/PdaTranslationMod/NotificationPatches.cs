@@ -59,4 +59,38 @@ public static class NotificationPatches
                 entryData.sound = newSound.asset;
         }
     }
+    
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(ConstructorInput), nameof(ConstructorInput.StartUse))]
+    private static void MobileVehicleBayPatch(ConstructorInput __instance)
+    {
+        if (Plugin.TranslatedDialogue.TryGetValue("InvalidConstructorPlacement", out var newSound))
+            __instance.invalidNotification.sound = newSound.asset;
+    }
+    
+    [HarmonyPrefix]
+    [HarmonyPatch(typeof(SignalPing), nameof(SignalPing.PlayVO))]
+    private static void SignalUnlockPatch(SignalPing __instance)
+    {
+        if (Plugin.TranslatedDialogue.TryGetValue("NewSignalNotification", out var newSound))
+            __instance.vo.sound = newSound.asset;
+    }
+    
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(LeakingRadiation), nameof(LeakingRadiation.Start))]
+    private static void AuroraRadiationPatch(LeakingRadiation __instance)
+    {
+        if (Plugin.TranslatedDialogue.TryGetValue("RemainingRadiationLeaks", out var leaksRemaining))
+            __instance.leaksRemainingNotification.sound = leaksRemaining.asset;
+        if (Plugin.TranslatedDialogue.TryGetValue("RadiationFixed", out var radiationFixed))
+            __instance.leaksFixedNotification.sound = radiationFixed.asset;
+    }
+    
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(LaunchRocket), nameof(LaunchRocket.Awake))]
+    private static void LaunchRocketFailPatch(LaunchRocket __instance)
+    {
+        if (Plugin.TranslatedDialogue.TryGetValue("Rocket_ReadyGunStillActive", out var newSound))
+            __instance.gunNotDisabled.sound = newSound.asset;
+    }
 }
