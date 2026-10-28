@@ -8,7 +8,7 @@
         <LangVersion>11</LangVersion>
         <RootNamespace>SunbeamReplacer</RootNamespace>
         <BepInExPluginGuid>com.kallie23.sunbeamreplacer</BepInExPluginGuid>
-        <BepInExPluginName>Sunbeam Model Replacer</BepInExPluginName>
+        <BepInExPluginName>Sunbeam Model Replacer (Degasi Version)</BepInExPluginName>
 
         <RestoreAdditionalProjectSources>
             https://api.nuget.org/v3/index.json;
