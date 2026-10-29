@@ -648,7 +648,7 @@ public static partial class CreatureSpawns
                 {
                     biome = BiomeType.SafeShallows_ShellTunnelHuge,
                     count = 2,
-                    probability = 3f
+                    probability = 2f
                 }
             });
 
