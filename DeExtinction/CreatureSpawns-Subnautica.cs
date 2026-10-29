@@ -1028,12 +1028,6 @@ public static partial class CreatureSpawns
         // Underwater Islands 1
         RegisterCoordinatedSpawn(CreaturePrefabManager.GulperPrefab.PrefabInfo, new SpawnInfo(CreaturePrefabManager.GulperPrefab.ClassID,
             new Vector3(-72, -300, 867)));
-        // Underwater Islands 1
-        RegisterCoordinatedSpawn(CreaturePrefabManager.GulperPrefab.PrefabInfo, new SpawnInfo(CreaturePrefabManager.GulperPrefab.ClassID,
-            new Vector3(-174, -460, 1070)));
-        // Underwater Islands & Mountains Border
-        RegisterCoordinatedSpawn(CreaturePrefabManager.GulperPrefab.PrefabInfo, new SpawnInfo(CreaturePrefabManager.GulperPrefab.ClassID,
-            new Vector3(-49, -308, 1184)));
         // Underwater Islands & Bulb Zone Border
         RegisterCoordinatedSpawn(CreaturePrefabManager.GulperPrefab.PrefabInfo, new SpawnInfo(CreaturePrefabManager.GulperPrefab.ClassID,
             new Vector3(-265, -287, 1118)));
