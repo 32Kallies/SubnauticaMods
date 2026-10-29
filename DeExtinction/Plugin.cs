@@ -49,7 +49,9 @@ public class Plugin : BaseUnityPlugin
         #if SN1
         UWE.CoroutineHost.StartCoroutine(ModifyBloomPlankton());
         #endif
-        
+
+        CreatureSpawnsToggler.CollectCreatures();
+        CreatureSpawnsToggler.CreateModOptions(Config);
         CreatureSpawns.RegisterLootDistribution();
         CreatureSpawns.RegisterCoordinatedSpawns();
         CreatureSpawns.ModifyBaseGameSpawns();

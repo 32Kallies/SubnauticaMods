@@ -1020,46 +1020,46 @@ public static partial class CreatureSpawns
         // --- GULPER LEVIATHAN ---
 
         // Mountains & Bulb Zone 1
-        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.GulperPrefab.ClassID,
+        RegisterCoordinatedSpawn(CreaturePrefabManager.GulperPrefab.PrefabInfo, new SpawnInfo(CreaturePrefabManager.GulperPrefab.ClassID,
             new Vector3(1169, -370, 903)));
         // Mountains & Bulb Zone 2
-        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.GulperPrefab.ClassID,
+        RegisterCoordinatedSpawn(CreaturePrefabManager.GulperPrefab.PrefabInfo, new SpawnInfo(CreaturePrefabManager.GulperPrefab.ClassID,
             new Vector3(1400, -348, 1281)));
         // Underwater Islands 1
-        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.GulperPrefab.ClassID,
+        RegisterCoordinatedSpawn(CreaturePrefabManager.GulperPrefab.PrefabInfo, new SpawnInfo(CreaturePrefabManager.GulperPrefab.ClassID,
             new Vector3(-72, -300, 867)));
         // Underwater Islands 1
-        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.GulperPrefab.ClassID,
+        RegisterCoordinatedSpawn(CreaturePrefabManager.GulperPrefab.PrefabInfo, new SpawnInfo(CreaturePrefabManager.GulperPrefab.ClassID,
             new Vector3(-174, -460, 1070)));
         // Underwater Islands & Mountains Border
-        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.GulperPrefab.ClassID,
+        RegisterCoordinatedSpawn(CreaturePrefabManager.GulperPrefab.PrefabInfo, new SpawnInfo(CreaturePrefabManager.GulperPrefab.ClassID,
             new Vector3(-49, -308, 1184)));
         // Underwater Islands & Bulb Zone Border
-        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.GulperPrefab.ClassID,
+        RegisterCoordinatedSpawn(CreaturePrefabManager.GulperPrefab.PrefabInfo, new SpawnInfo(CreaturePrefabManager.GulperPrefab.ClassID,
             new Vector3(-265, -287, 1118)));
         // Floating Island
-        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.GulperPrefab.ClassID,
+        RegisterCoordinatedSpawn(CreaturePrefabManager.GulperPrefab.PrefabInfo, new SpawnInfo(CreaturePrefabManager.GulperPrefab.ClassID,
             new Vector3(-717, -100, -1088)));
         // Lifepod 2
-        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.GulperPrefab.ClassID,
+        RegisterCoordinatedSpawn(CreaturePrefabManager.GulperPrefab.PrefabInfo, new SpawnInfo(CreaturePrefabManager.GulperPrefab.ClassID,
             new Vector3(-573, -448, 1311)));
         // Blood Kelp Trench
-        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.GulperPrefab.ClassID,
+        RegisterCoordinatedSpawn(CreaturePrefabManager.GulperPrefab.PrefabInfo, new SpawnInfo(CreaturePrefabManager.GulperPrefab.ClassID,
             new Vector3(-970, -216, -509)));
 
         // --- GULPER LEVIATHAN BABY ---
 
         // Mountain Island
-        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.GulperBabyPrefab.ClassID,
+        RegisterCoordinatedSpawn(CreaturePrefabManager.GulperBabyPrefab.PrefabInfo, new SpawnInfo(CreaturePrefabManager.GulperBabyPrefab.ClassID,
             new Vector3(364, -10, 1172)));
         // Mountains & Bulb Zone Border
-        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.GulperBabyPrefab.ClassID,
+        RegisterCoordinatedSpawn(CreaturePrefabManager.GulperBabyPrefab.PrefabInfo, new SpawnInfo(CreaturePrefabManager.GulperBabyPrefab.ClassID,
             new Vector3(1135, -364, 900)));
         // Floating Island 1
-        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.GulperBabyPrefab.ClassID,
+        RegisterCoordinatedSpawn(CreaturePrefabManager.GulperBabyPrefab.PrefabInfo, new SpawnInfo(CreaturePrefabManager.GulperBabyPrefab.ClassID,
             new Vector3(-711, -12, -1071)));
         // Floating Island 2
-        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.GulperBabyPrefab.ClassID,
+        RegisterCoordinatedSpawn(CreaturePrefabManager.GulperBabyPrefab.PrefabInfo, new SpawnInfo(CreaturePrefabManager.GulperBabyPrefab.ClassID,
             new Vector3(-690, -3, -948)));
 
         // --- GULPER LEVIATHAN EGG ---
@@ -1079,27 +1079,29 @@ public static partial class CreatureSpawns
 
         // -- DRAGONFLY --
 
+        var dragonFly = CreaturePrefabManager.Dragonfly;
+
         var dragonflyRandomGenerator = new System.Random(19872024);
         for (int i = 0; i < 60; i++)
         {
             var angle = (float) dragonflyRandomGenerator.NextDouble() * Mathf.PI * 2f;
             var distance = Mathf.Pow((float) dragonflyRandomGenerator.NextDouble(), 1/2f) * 1500f;
             var height = 30 + (float) dragonflyRandomGenerator.NextDouble() * 70;
-            CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.Dragonfly.ClassID,
+            RegisterCoordinatedSpawn(dragonFly.PrefabInfo, new SpawnInfo(dragonFly.ClassID,
                 new Vector3(Mathf.Cos(angle) * distance, height, Mathf.Sin(angle) * distance)));
         }
 
         // Aurora dragonflies
 
-        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.Dragonfly.ClassID,
+        RegisterCoordinatedSpawn(dragonFly.PrefabInfo, new SpawnInfo(dragonFly.ClassID,
             new Vector3(1438.42f, 59.95f, 371.04f)));
-        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.Dragonfly.ClassID,
+        RegisterCoordinatedSpawn(dragonFly.PrefabInfo, new SpawnInfo(dragonFly.ClassID,
             new Vector3(1497.71f, 32.29f, 333.62f)));
-        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.Dragonfly.ClassID,
+        RegisterCoordinatedSpawn(dragonFly.PrefabInfo, new SpawnInfo(dragonFly.ClassID,
             new Vector3(1544.99f, 27.92f, 274.32f)));
-        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.Dragonfly.ClassID,
+        RegisterCoordinatedSpawn(dragonFly.PrefabInfo, new SpawnInfo(dragonFly.ClassID,
             new Vector3(1490.97f, 36.88f, 264.48f)));
-        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.Dragonfly.ClassID,
+        RegisterCoordinatedSpawn(dragonFly.PrefabInfo, new SpawnInfo(dragonFly.ClassID,
             new Vector3(1204.73f, 125.56f, 55.31f)));
     }
 

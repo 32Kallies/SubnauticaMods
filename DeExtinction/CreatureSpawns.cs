@@ -13,11 +13,19 @@ public static partial class CreatureSpawns
 
     private static void RegisterFishSpawns(CreatureAsset creature, List<LootDistributionData.BiomeData> biomeData)
     {
-        LootDistributionHandler.AddLootDistributionData(creature.PrefabInfo.ClassID, creature.PrefabInfo.PrefabFileName, biomeData);
+        if (CreatureSpawnsToggler.GetCanSpawn(creature.PrefabInfo))
+            LootDistributionHandler.AddLootDistributionData(creature.PrefabInfo.ClassID, creature.PrefabInfo.PrefabFileName, biomeData);
     }
     
     private static void RegisterEggSpawns(PrefabInfo eggInfo, List<LootDistributionData.BiomeData> biomeData)
     {
-        LootDistributionHandler.AddLootDistributionData(eggInfo.ClassID, eggInfo.PrefabFileName, biomeData);
+        if (CreatureSpawnsToggler.GetCanSpawn(eggInfo))
+            LootDistributionHandler.AddLootDistributionData(eggInfo.ClassID, eggInfo.PrefabFileName, biomeData);
+    }
+    
+    private static void RegisterCoordinatedSpawn(PrefabInfo prefabInfo, SpawnInfo spawnInfo)
+    {
+        if (CreatureSpawnsToggler.GetCanSpawn(prefabInfo))
+            CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(spawnInfo);
     }
 }

@@ -803,17 +803,17 @@ public static partial class CreatureSpawns
         // --- GULPER LEVIATHAN ---
 
         // Sparse arctic (juvenile)
-        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(
+        RegisterCoordinatedSpawn(new SpawnInfo(
             CreaturePrefabManager.GulperJuvenilePrefab.ClassID,
             new Vector3(260, -20, 38)));
         // Lily pad islands
-        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.GulperPrefab.ClassID,
+        RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.GulperPrefab.ClassID,
             new Vector3(240, -70, -815)));
         // Tree spires
-        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.GulperPrefab.ClassID,
+        RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.GulperPrefab.ClassID,
             new Vector3(-75, -380, -1615)));
         // West arctic
-        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.GulperPrefab.ClassID,
+        RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.GulperPrefab.ClassID,
             new Vector3(-640, -84, -1020)));
 
 
@@ -834,14 +834,14 @@ public static partial class CreatureSpawns
         
         // --- PYRAMBASSIS ---
         
-        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.Pyrambassis.ClassID,
+        RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.Pyrambassis.ClassID,
             new Vector3(-266, -326, -308)));
         
         // --- TWISTEEL ---
         
-        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.TwisteelJuvenile.ClassID,
+        RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.TwisteelJuvenile.ClassID,
             new Vector3(678, -540, -1100)));
-        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.TwisteelJuvenile.ClassID,
+        RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.TwisteelJuvenile.ClassID,
             new Vector3(673, -538, -1094)));
 
     }
@@ -855,7 +855,7 @@ public static partial class CreatureSpawns
             var angle = (float) dragonflyRandomGenerator.NextDouble() * PI * 2f;
             var distance = Pow((float) dragonflyRandomGenerator.NextDouble(), 1 / 2f) * radius;
             var height = minHeight + (float) dragonflyRandomGenerator.NextDouble() * (maxHeight - minHeight);
-            CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.Dragonfly.ClassID,
+            RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.Dragonfly.ClassID,
                 new Vector3(Cos(angle) * distance, height, Sin(angle) * distance) + centerPosition));
         }
     }
