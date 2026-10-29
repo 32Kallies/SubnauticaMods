@@ -126,7 +126,7 @@
     "Ency_Twisteel": "Elder Twisteel",
     "EncyDesc_Twisteel": "A large eel-like predator found in a variety of environments. After reaching adulthood, Twisteels leave their nesting area and only ever return to lay eggs.\n\n1. Body:\nA long and flexible body allows the Twisteel to snake around the environment with a low profile while hunting for prey, often in small groups. The Twisteel appears to share many characteristics with other shark-like creatures found on Planet 4546B.\n\n2. Jaws:\nDistantly related to other lifeforms on the planet possessing a quad-jaw arrangement, the lateral pair of jaws have been reduced to a vestigial point. The remaining jaws reach lengths of up to 3m, and are filled with rows of large teeth to trap relatively large prey items.\n\nAssessment: Avoid",
 
-    "TwisteelJuvenile": "Twisteel",
+    "TwisteelJuvenile": "Twisteel juvenile",
     "Tooltip_TwisteelJuvenile": "Thin eel-like organism, raised in containment.",
     "Ency_TwisteelJuvenile": "Twisteel",
     "EncyDesc_TwisteelJuvenile": "An eel-like predator found in a deep canyon.\n\n1. Body:\nA long and flexible body allows the Twisteel to snake around the environment with a low profile while hunting for prey, often in small groups. The Twisteel appears to share many characteristics with other shark-like creatures found on Planet 4546B.\n\n2. Jaws:\nDistantly related to other lifeforms on the planet possessing a quad-jaw arrangement, the lateral pair of jaws have been reduced to a vestigial point. The remaining jaws reach lengths of up to 3m, and are filled with rows of large teeth to trap relatively large prey items.\n\nAssessment: Avoid",
@@ -136,7 +136,7 @@
     "Ency_GulperLeviathan": "Gulper Leviathan",
     "EncyDesc_GulperLeviathan": "This vast animal is at the top of the local food chain, and has been designated leviathan class.\n\n1. Jaws:\nSituated within the maw of the leviathan are four mobile jaws capable of launching forward and dragging prey in towards the mouth.\n\n2. Limbs:\nA pair of fins modified into muscular limbs serve an unknown purpose. Possibilities include restraint of other animals, propulsion off of the seabed, and slashing of potential prey or threats. Whatever the case, avoidance of limbs is highly recommended.\n\n3. Behavior:\nConsumes anything it can fit into its mouth. Will attempt to crush prey if too large or tough.\n\nHunts using electromagnetic signals, may be drawn to wrecked technology.\n\nAssessment: Extreme threat to whatever can fit into its mouth - Avoid in all circumstances",
 
-    "GulperLeviathanJuvenile": "Gulper leviathan",
+    "GulperLeviathanJuvenile": "Gulper leviathan juvenile",
     "Tooltip_GulperLeviathanJuvenile": "A juvenile leviathan-class predator with a huge mouth. How did you pick this up?",
     "Ency_GulperLeviathanJuvenile": "Gulper Leviathan Juvenile",
     "EncyDesc_GulperLeviathanJuvenile": "This quickly-growing leviathan is already at the top of the local food chain.\n\n1. Jaws:\nSituated within the maw of the leviathan are four mobile jaws capable of launching forward and dragging prey in towards the mouth.\n\n2. Limbs:\nA pair of fins modified into muscular limbs serve an unknown purpose. Possibilities include restraint of other animals, propulsion off of the seabed, and slashing of potential prey or threats. Whatever the case, avoidance of limbs is highly recommended.\n\n3. Behavior:\nConsumes anything it can fit into its mouth. Will attempt to crush prey if too large or tough.\n\nHunts using electromagnetic signals, may be drawn to wrecked technology.\n\nAssessment: Extreme threat to whatever can fit into its mouth - Avoid in all circumstances, and do not look for its parents",
@@ -159,5 +159,7 @@
     "Ency_Pyrambassis": "Pyrambassis",
     "EncyDesc_Pyrambassis": "A large invertebrate filter feeder with a transparent body. Mostly found deep underwater and in caves where light levels are low, although its simple yet resilient structure can thrive in nearly all environments\n\n1. Bioluminescent Parapodia:\nHundreds of paddle-like fins line the body of the Pyrambassis, allowing it to move through the water with ease. The bioluminescent wiring that lines the outside of these fins likely helps in disorienting potential predators.\n\n2. Bilateral Antennae:\nTwo long antennae situated on either side of the creature’s head appear to serve a role in chemoreception, allowing the Pyrambassis to locate areas with high concentration of plankton, bacteria, and other edible microorganisms.\n\n3. Acidic Secretions:\nThe Pyrambassis is capable of secreting a highly toxic substance into the water whenever it feels threatened. This behavior is purely defensive, but deadly if you’re not careful.\n\nAssessment: Strikingly beautiful, but don’t get too close",
     "PyrambassisEgg": "Pyrambassis egg",
-    "Tooltip_PyrambassisEgg": "Pyrambassis hatch from these."
+    "Tooltip_PyrambassisEgg": "Pyrambassis hatch from these.",
+    
+    "SnowThalassacean": "???"
 }
