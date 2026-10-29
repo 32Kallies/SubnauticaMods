@@ -24,12 +24,14 @@ public static class CreatureSpawnsToggler
             string name = Language.main.Get(id);
             
             var configEntry = config.Bind("Spawns", id, true, new ConfigDescription(name));
+            bool isSpawningEnabled = configEntry.Value;
             
-            var option = ModToggleOption.Create(id, name, configEntry.Value, Tooltip);
+            var option = ModToggleOption.Create(id, name, isSpawningEnabled, Tooltip);
             option.OnChanged += (_, args) =>
             {
                 configEntry.Value = args.Value;
             };
+            item.Value.SpawningEnabled = isSpawningEnabled;
             options.AddItem(option);
         }
 
