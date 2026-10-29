@@ -30,6 +30,7 @@ public static class CreatureSpawnsToggler
             option.OnChanged += (_, args) =>
             {
                 configEntry.Value = args.Value;
+                ErrorMessage.AddMessage("<color=#FFA000>Restart required for settings changes to apply</color>");
             };
             item.Value.SpawningEnabled = isSpawningEnabled;
             options.AddItem(option);
