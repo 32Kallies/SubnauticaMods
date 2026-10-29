@@ -84,10 +84,9 @@ public class TwisteelPrefab : CreatureAsset
         voice.animatorTriggerParam = "roar";
 
         var trailParent = prefab.SearchChild("Spine3");
-        var trailManagerBuilder = new TrailManagerBuilder(components, trailParent.transform, 20, 0.5f);
+        var trailManagerBuilder = new TrailManagerBuilder(components, trailParent.transform, 20);
         trailManagerBuilder.SetTrailArrayToChildrenWithKeywords("Spine");
-        var trailManager = trailManagerBuilder.Apply();
-        trailManager.rootSegment = prefab.transform.Find("FakeTrailManagerRoot");
+        trailManagerBuilder.Apply();
 
         components.Rigidbody.inertiaTensor = new Vector3(1526.97f, 1526.97f, 62.35f);
 
