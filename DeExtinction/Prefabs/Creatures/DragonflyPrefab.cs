@@ -80,12 +80,10 @@ public class DragonflyPrefab : CreatureAsset
         var hunt = prefab.AddComponent<BirdHuntBehaviour>();
         hunt.evaluatePriority = 0.6f;
 
-        var tailRoot = prefab.SearchChild("Tail");
-        var fakeRoot = prefab.transform.Find("FakeTrailManagerRoot");
-        var trailManagerBuilder = new TrailManagerBuilder(components, tailRoot.transform, 10);
+        var tailRoot = prefab.SearchChild("Tail.001");
+        var trailManagerBuilder = new TrailManagerBuilder(components, tailRoot.transform, 30);
         trailManagerBuilder.SetTrailArrayToChildrenWithKeywords("Tail");
-        var trailManager = trailManagerBuilder.Apply();
-        trailManager.rootSegment = fakeRoot;
+        trailManagerBuilder.Apply();
 
         prefab.AddComponent<RandomizeHungerOnStart>();
 
