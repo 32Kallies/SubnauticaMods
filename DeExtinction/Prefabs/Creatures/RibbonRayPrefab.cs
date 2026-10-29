@@ -26,7 +26,7 @@ public class RibbonRayPrefab : CreatureAsset
             BioReactorCharge = 400f,
             SizeDistribution = new AnimationCurve(new Keyframe(0, 0.8f), new Keyframe(1, 1)),
             LocomotionData = new LocomotionData(10, 0.4f, 3, 0.1f),
-            AnimateByVelocityData = new AnimateByVelocityData(6f),
+            AnimateByVelocityData = new AnimateByVelocityData(4f, animationMaxTilt: 20, dampTime: 0.2f),
             StayAtLeashData = new StayAtLeashData(0.4f, 2, 25f)
         };
         template.SetWaterParkCreatureData(new WaterParkCreatureDataStruct(0.1f, 0.7f, 0.9f, 1f, true, true, PrefabInfo.ClassID));
@@ -39,14 +39,15 @@ public class RibbonRayPrefab : CreatureAsset
     {
         components.Creature.activity = DeExtinctionUtils.StandardActivityCurve;
         
-        var trailManagerBuilder1 = new TrailManagerBuilder(components, prefab.transform.SearchChild("LTail1Spade"), 3, 0.5f);
+        /*
+        var trailManagerBuilder1 = new TrailManagerBuilder(components, prefab.transform.SearchChild("LTail2Spade"), 3, 0.5f);
         trailManagerBuilder1.SetTrailArrayToAllChildren();
         trailManagerBuilder1.Apply();
         
-        var trailManagerBuilder2 = new TrailManagerBuilder(components, prefab.transform.SearchChild("RTail1Spade"), 3, 0.5f);
+        var trailManagerBuilder2 = new TrailManagerBuilder(components, prefab.transform.SearchChild("RTail2Spade"), 3, 0.5f);
         trailManagerBuilder2.SetTrailArrayToAllChildren();
         trailManagerBuilder2.Apply();
-        
+        */
 #if BELOWZERO
         var viewModelTransform = prefab.GetComponent<FPModel>().viewModel.transform;
         viewModelTransform.localPosition = new Vector3(-0.02f, 0.02f, 0);
