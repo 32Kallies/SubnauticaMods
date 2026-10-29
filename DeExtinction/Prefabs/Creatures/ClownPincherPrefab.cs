@@ -75,12 +75,14 @@ internal class ClownPincherPrefab : CreatureAsset
         clownPincherCreatureComponent.scavengeBehaviour = scavengeBehaviour;
         clownPincherCreatureComponent.animateByVelocity = components.AnimateByVelocity;
         
-        var worldModel = prefab.SearchChild("WorldModel");
+        // var worldModel = prefab.SearchChild("WorldModel");
 
+        /*
         var trailManagerBuilder = new TrailManagerBuilder(components,
             worldModel.SearchChild("Spine3", ECCStringComparison.StartsWith).transform, 1);
         trailManagerBuilder.SetTrailArrayToChildrenWithKeywords("Spine");
         trailManagerBuilder.Apply();
+        */
         
 #if BELOWZERO
         var viewModelTransform = prefab.GetComponent<FPModel>().viewModel.transform;
