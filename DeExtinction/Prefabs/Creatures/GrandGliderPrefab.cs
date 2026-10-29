@@ -42,10 +42,9 @@ public class GrandGliderPrefab : CreatureAsset
 
     protected override IEnumerator ModifyPrefab(GameObject prefab, CreatureComponents components)
     {
-        var trailManagerBuilder = new TrailManagerBuilder(components, prefab.transform.Find("Grand Glider/Grand Glider Armature/Root/Spine1"), 2f);
+        var trailManagerBuilder = new TrailManagerBuilder(components, prefab.transform.Find("Grand Glider/Grand Glider Armature/Root/Spine1/Spine2"), 15f);
         trailManagerBuilder.SetTrailArrayToChildrenWithKeywords("Spine");
-        var trailManager = trailManagerBuilder.Apply();
-        trailManager.rootSegment = prefab.transform.Find("FakeTrailManagerRoot");
+        trailManagerBuilder.Apply();
         
         yield break;
     }
