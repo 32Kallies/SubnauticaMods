@@ -100,7 +100,7 @@ public class SeaVoyagerPrefab
         }
 
         // Apply materials
-        MaterialUtils.ApplySNShaders(prefab, 5.5f);
+        MaterialUtils.ApplySNShaders(prefab, 5.5f, 1, 1, new LightmapMaterialModifier(1));
         var windowRenderer = prefab.SearchChild("Window").GetComponent<Renderer>();
         windowRenderer.material = glassMaterial;
 
@@ -192,12 +192,12 @@ public class SeaVoyagerPrefab
             new LightingController.MultiStatesSky
             {
                 sky = interiorSky,
-                masterIntensities = new[] { 1.4f, 1f, 0.5f },
-                diffIntensities = new[] { 7, 1.5f, 1.2f },
-                specIntensities = new[] { 2, 0.6f, 0.5f },
-                startDiffuseIntensity = 7,
-                startMasterIntensity = 1.4f,
-                startSpecIntensity = 2
+                masterIntensities = new[] { 1.3f, 1f, 0.5f },
+                diffIntensities = new[] { 3, 1.5f, 1.2f },
+                specIntensities = new[] { 1.4f, 0.6f, 0.5f },
+                startDiffuseIntensity = 3,
+                startMasterIntensity = 1.3f,
+                startSpecIntensity = 1.4f
             },
             new LightingController.MultiStatesSky
             {
@@ -300,6 +300,8 @@ public class SeaVoyagerPrefab
         shipBehaviour.modulesRoot = prefab.transform;
         shipBehaviour.oxygenMgr = oxygenManager;
         shipBehaviour.lightControl = lightControl;
+        shipBehaviour.interiorSky = interiorSky;
+        shipBehaviour.glassSky = glassSky;
 
         // It needs to produce power somehow
         var basePowerRelay = basePrefab.GetComponent<PowerRelay>();
