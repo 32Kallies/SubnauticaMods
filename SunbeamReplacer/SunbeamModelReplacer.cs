@@ -9,6 +9,7 @@ public static class SunbeamModelReplacer
     {
         var modelTransform = modelPrefab.transform.GetChild(0); // xShip
         ParticleSystemRenderer gameRenderer = modelTransform.GetComponent<ParticleSystemRenderer>();
+        gameRenderer.motionVectorGenerationMode = MotionVectorGenerationMode.ForceNoMotion;
 
         string modelName = "NewSunbeamModel";
         var newSunbeamModel = Plugin.Bundle.LoadAsset<GameObject>(modelName);
