@@ -6,7 +6,7 @@ using HarmonyLib;
 namespace RobinPlayerModel;
 
 [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
-[BepInDependency("com.snmodding.nautilus")]
+[BepInDependency("com.snmodding.nautilus", "1.0.0.56")]
 [BepInDependency("com.snmodding.BZtoSNLoader")]
 public class Plugin : BaseUnityPlugin
 {
