@@ -8,15 +8,13 @@ namespace TwistyBridgesObjectCleanser;
 public sealed class PropDestroyer
 {
     private PrefabInfo Info { get; }
-    private TechType[] TechTypesToDestroy { get; }
     private string[] ClassIdsToDestroy { get; }
     private float DestroyRadius { get; }
     private Color Color { get; }
 
-    public PropDestroyer(PrefabInfo info, TechType[] techTypesToDestroy, string[] classIdsToDestroy, float destroyRadius, Color color)
+    public PropDestroyer(PrefabInfo info, string[] classIdsToDestroy, float destroyRadius, Color color)
     {
         Info = info;
-        TechTypesToDestroy = techTypesToDestroy;
         ClassIdsToDestroy = classIdsToDestroy;
         DestroyRadius = destroyRadius;
         Color = color;
@@ -35,7 +33,6 @@ public sealed class PropDestroyer
         obj.SetActive(false);
         PrefabUtils.AddBasicComponents(obj, Info.ClassID, Info.TechType, GetCellLevel(DestroyRadius));
         var destroy = obj.AddComponent<DestroyPropsInRange>();
-        destroy.techTypesToDestroy = TechTypesToDestroy;
         destroy.classIdsToDestroy = ClassIdsToDestroy;
         destroy.radius = DestroyRadius;
         

@@ -7,7 +7,6 @@ public sealed class DestroyPropsInRange : MonoBehaviour, IScheduledUpdateBehavio
 {
     private const float MinUpdateInterval = 2;
     
-    public TechType[] techTypesToDestroy;
     public string[] classIdsToDestroy;
     public float radius;
 
@@ -54,22 +53,6 @@ public sealed class DestroyPropsInRange : MonoBehaviour, IScheduledUpdateBehavio
                 return;
             }
         }
-
-        /*
-        var techType = CraftData.GetTechType(identifier.gameObject);
-        if (techType == TechType.None)
-            return;
-
-        
-        foreach (var validType in techTypesToDestroy)
-        {
-            if (techType == validType)
-            {
-                SafeDestroy(identifier.gameObject);
-                return;
-            }
-        }
-        */
     }
 
     private void SafeDestroy(GameObject go)

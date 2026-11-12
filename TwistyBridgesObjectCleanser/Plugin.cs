@@ -45,7 +45,7 @@ public sealed class Plugin : BaseUnityPlugin
             {
                 var info = GetPropDestroyerInfo(group, r);
                 var color = GetVisualizerColor(group.Identifier);
-                new PropDestroyer(info, Array.Empty<TechType>(), group.ClassIds, group.Ranges[r], color)
+                new PropDestroyer(info, group.ClassIds, group.Ranges[r], color)
                     .Register();
             }
         }
