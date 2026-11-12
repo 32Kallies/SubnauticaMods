@@ -36,4 +36,6 @@
         <HintPath>..\Dependencies\BZtoSNLoader.dll</HintPath>
       </Reference>
     </ItemGroup>
+
+    <Import Project="./PostBuild.targets"/>
 </Project>
