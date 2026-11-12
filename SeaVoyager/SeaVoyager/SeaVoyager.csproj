@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
 	<AssemblyName>SeaVoyager</AssemblyName>
-    <Version>3.1.1</Version>
+    <Version>3.1.2</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>11</LangVersion>
 	<RootNamespace>SeaVoyager</RootNamespace>
