@@ -65,8 +65,7 @@ public class PlayerReplacementPreset
             bool found = false;
             for (int j = 0; j < currentMesh.bones.Length; j++)
             {
-                if (currentMesh.bones[j].name
-                    .Equals(referenceMesh.bones[i].name, System.StringComparison.OrdinalIgnoreCase))
+                if (currentMesh.bones[j].name.Equals(referenceMesh.bones[i].name, StringComparison.OrdinalIgnoreCase))
                 {
                     bones[i] = currentMesh.bones[j];
                     found = true;
