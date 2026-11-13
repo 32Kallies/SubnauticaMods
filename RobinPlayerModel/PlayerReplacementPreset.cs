@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using BZtoSNLoader;
+using Nautilus.Extensions;
 using UnityEngine;
 
 namespace RobinPlayerModel;
@@ -10,6 +11,7 @@ public class PlayerReplacementPreset
 {
     public required BZAssetLoader.AssetKey PlayerAssetPath { get; init; }
     public required PlayerModelReplacement[] Replacements { get; init; }
+    public required Dictionary<string, BoneAdjustment> RigAdjustments { get; init; }
 
     public IEnumerator ReplacePlayerModel(Player player)
     {
@@ -55,6 +57,9 @@ public class PlayerReplacementPreset
         }
         
         Plugin.Logger.LogInfo($"Replaced {replacements} meshes on the Player");
+
+        Transform rigParent = sn1PlayerView.Find("export_skeleton");
+        UpdateRig(rigParent, bzPlayerView.transform.Find("export_skeleton"));
     }
 
     private void OverrideSkinnedMeshRenderer(SkinnedMeshRenderer currentMesh, SkinnedMeshRenderer referenceMesh)
@@ -84,5 +89,47 @@ public class PlayerReplacementPreset
         currentMesh.bones = bones;
         currentMesh.localBounds = referenceMesh.localBounds;
         currentMesh.quality = referenceMesh.quality;
+    }
+
+    private void UpdateRig(Transform rigRoot, Transform bzPlayerRig)
+    {
+        foreach (Transform child in rigRoot.GetComponentsInChildren<Transform>())
+        {
+            var bzBone = bzPlayerRig.SearchChild(child.name);
+            if (bzBone == null)
+            {
+                Plugin.Logger.LogWarning("Couldn't find BZ bone: " + child.name);
+                continue;
+            }
+            var adjuster = child.gameObject.AddComponent<RuntimeBoneAdjuster>();
+            adjuster.positionMode = AdjustmentMode.Offset;
+            adjuster.position = bzBone.localPosition - child.localPosition;
+            adjuster.rotationMode = AdjustmentMode.Offset;
+            var B = bzBone.localRotation;
+            var A = child.localRotation;
+            Quaternion difference = Quaternion.Inverse(A) * B;
+            Vector3 eulerDifference = difference.eulerAngles;
+            adjuster.rotation = eulerDifference;
+        }
+        return;
+        foreach (var adjustment in RigAdjustments)
+        {
+            Transform bone = rigRoot.SearchChild(adjustment.Key);
+            if (bone == null)
+            {
+                Plugin.Logger.LogWarning($"Could not find bone by name {adjustment.Key}. Skipping.");
+                continue;
+            }
+
+            var adjust = adjustment.Value;
+            if (adjust.PositionAdjustmentMode != AdjustmentMode.None || adjust.RotationAdjustmentMode != AdjustmentMode.None)
+            {
+                var adjuster = bone.gameObject.AddComponent<RuntimeBoneAdjuster>();
+                adjuster.positionMode = adjust.PositionAdjustmentMode;
+                adjuster.position = adjust.Position;
+                adjuster.rotationMode = adjust.RotationAdjustmentMode;
+                adjuster.rotation = adjust.Rotation;
+            }
+        }
     }
 }
