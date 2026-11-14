@@ -14,6 +14,7 @@ public sealed class PlayerReplacementPreset
     public required Dictionary<string, BoneAdjustment> RigAdjustments { get; init; }
     public required AdditionalBone[] ExtraBones { get; init; }
     public required FalseBone[] FalseBones { get; init; }
+    public required Action<GameObject> FinalTouches { get; init; }
 
     private const bool Verbose = true;
 
@@ -69,7 +70,7 @@ public sealed class PlayerReplacementPreset
 
             var bzMesh = bzMeshTransform.GetComponent<SkinnedMeshRenderer>();
             var sn1Mesh = sn1MeshTransform.GetComponent<SkinnedMeshRenderer>();
-            changedRenderers.Add(sn1Mesh.gameObject.name, sn1Mesh);
+            changedRenderers[sn1Mesh.gameObject.name] = sn1Mesh;
 
             OverrideSkinnedMeshRenderer(sn1Mesh, bzMesh, boneMap);
             replacements++;
@@ -102,6 +103,8 @@ public sealed class PlayerReplacementPreset
         
         if (Verbose)
             Plugin.Logger.LogInfo($"Replaced {replacements} meshes on the Player");
+        
+        FinalTouches.Invoke(sn1PlayerView.gameObject);
     }
 
     private void OverrideSkinnedMeshRenderer(SkinnedMeshRenderer currentMesh, SkinnedMeshRenderer referenceMesh, Dictionary<string, Transform> boneMap)

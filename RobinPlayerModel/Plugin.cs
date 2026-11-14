@@ -5,6 +5,8 @@ using BepInEx;
 using BepInEx.Logging;
 using BZtoSNLoader;
 using HarmonyLib;
+using Nautilus.Extensions;
+using Nautilus.Utility;
 using UnityEngine;
 
 namespace RobinPlayerModel;
@@ -39,7 +41,7 @@ public class Plugin : BaseUnityPlugin
                 new PlayerModelReplacement
                 {
                     OriginalViewModelPath = "male_geo/diveSuit/diveSuit_hands_geo",
-                    BzViewModelPath = "female_geo/base/female_base_hand_geo"
+                    BzViewModelPath = "female_geo/base/female_base_gloves_geo"
                 },
                 new PlayerModelReplacement
                 {
@@ -55,7 +57,7 @@ public class Plugin : BaseUnityPlugin
                 new PlayerModelReplacement
                 {
                     OriginalViewModelPath = "male_geo/reinforcedSuit/reinforced_suit_01_glove_geo",
-                    BzViewModelPath = "female_geo/reinforced/female_reinforced_hands_geo"
+                    BzViewModelPath = "female_geo/coldProtective/female_coldProtectiveSuit_hands_geo"
                 },
                 // Water filtration suit
                 new PlayerModelReplacement
@@ -162,7 +164,7 @@ public class Plugin : BaseUnityPlugin
                         PositionAdjustmentMode = AdjustmentMode.Offset,
                         Position = new Vector3(0.01f, -0.01f, 0),
                         RotationAdjustmentMode = AdjustmentMode.Offset,
-                        Rotation = new Vector3(0.13f, 358.78f, 10) // 2.82f),
+                        Rotation = new Vector3(0.13f, 358.78f, 15) // 2.82f),
                     }
                 },
                 {
@@ -243,8 +245,8 @@ public class Plugin : BaseUnityPlugin
                 {
                     BoneName = "metacarpal_R",
                     Parent = "hand_R",
-                    LocalPosition = new Vector3(0.047f, 0.002f, -0.001f),
-                    LocalRotation = new Vector3(359, 343.6f, 19.4f)
+                    LocalPosition = new Vector3(0.048f, 0.002f, -0.008f),
+                    LocalRotation = new Vector3(0.247f, 340.9f, 21.4f)
                 },
                 new AdditionalBone
                 {
@@ -288,20 +290,81 @@ public class Plugin : BaseUnityPlugin
                 new FalseBone
                 {
                     BoneName = "clav_L_BreastFix",
-                    RyleyMeshesToApplyTo = ["diveSuit_body_geo", "reinforced_suit_01_body_geo","still_suit_01_body_geo"],
+                    RyleyMeshesToApplyTo =
+                        ["diveSuit_body_geo", "reinforced_suit_01_body_geo", "still_suit_01_body_geo"],
                     OriginalBoneName = "clav_L"
                 },
                 new FalseBone
                 {
                     BoneName = "clav_R_BreastFix",
-                    RyleyMeshesToApplyTo = ["diveSuit_body_geo", "reinforced_suit_01_body_geo","still_suit_01_body_geo"],
+                    RyleyMeshesToApplyTo =
+                        ["diveSuit_body_geo", "reinforced_suit_01_body_geo", "still_suit_01_body_geo"],
                     OriginalBoneName = "clav_R"
                 }
-            ]
+            ],
+            FinalTouches = ApplyFinalTouches
         };
 
         // register harmony patches, if there are any
         Harmony.CreateAndPatchAll(Assembly, $"{PluginInfo.PLUGIN_GUID}");
         Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
+    }
+
+    private void ApplyFinalTouches(GameObject playerView)
+    {
+        var t = playerView.transform;
+        var meshesToFix = new[] // relative to male_geo
+        {
+            "stillSuit/still_suit_01_body_geo", "generalSuit/flippers_basic_geo", "UltraGlideFins/flippers_basic_geo",
+            "SwimChargeFins/flippers_basic_geo", "reinforcedSuit/reinforced_suit_01_glove_geo",
+            "reinforcedSuit/reinforced_suit_01_body_geo"
+        };
+        var geo = t.Find("male_geo");
+
+        var standardSpec = Shader.Find("Standard (Specular setup)");
+
+        foreach (var fixable in meshesToFix)
+        {
+            var mesh = geo.transform.Find(fixable);
+            if (mesh == null)
+            {
+                Logger.LogWarning($"Could not find mesh {fixable} to fix");
+                continue;
+            }
+
+            var renderer = mesh.GetComponent<SkinnedMeshRenderer>();
+            foreach (var material in renderer.materials)
+            {
+                material.shader = standardSpec;
+                material.SetTexture("_SpecGlossMap", material.GetTexture("_MainTex"));
+            }
+
+            MaterialUtils.ApplySNShaders(renderer.gameObject, 8);
+        }
+
+        var fixes = playerView.AddComponent<RobinPdaFixes>();
+        fixes.attachL = playerView.transform.SearchChild("attachL");
+        fixes.clavLAim = playerView.transform.SearchChild("clav_L_aim");
+
+        var radiationSuit = new Transform[]
+        {
+            geo.Find("radiationSuit/radiationSuit_body_geo"),
+            geo.Find("radiationSuit/radiationSuit_gloves_geo")
+        };
+        foreach (var rad in radiationSuit)
+        {
+            var renderer = rad.GetComponent<Renderer>();
+            foreach (var mat in renderer.materials)
+            {
+                var color = new Color(0.7f, 0.7f, 0.7f);
+                mat.SetColor("_Color", color);
+                mat.SetColor("_SpecColor", color);
+            }
+        }
+
+        geo.Find("radiationSuit/radiationSuit_vest_reducedNeck_geo").GetComponent<Renderer>().enabled = false;
+
+        playerView.AddComponent<DisableAdjustmentsDuringCinematics>().adjusters =
+            playerView.GetComponentsInChildren<RuntimeBoneAdjuster>();
     }
 }
