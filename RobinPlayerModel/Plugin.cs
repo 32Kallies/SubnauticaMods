@@ -66,6 +66,16 @@ public class Plugin : BaseUnityPlugin
                 // Fins
                 new PlayerModelReplacement
                 {
+                    OriginalViewModelPath = "male_geo/SwimChargeFins/flippers_basic_geo",
+                    BzViewModelPath = "female_geo/base/female_base_flipper_geo"
+                },
+                new PlayerModelReplacement
+                {
+                    OriginalViewModelPath = "male_geo/UltraGlideFins/flippers_basic_geo",
+                    BzViewModelPath = "female_geo/base/female_base_flipper_geo"
+                },
+                new PlayerModelReplacement
+                {
                     OriginalViewModelPath = "male_geo/generalSuit/flippers_basic_geo",
                     BzViewModelPath = "female_geo/base/female_base_flipper_geo"
                 },
