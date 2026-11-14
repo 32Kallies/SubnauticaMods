@@ -9,7 +9,7 @@ public class DisableAdjustmentsDuringCinematics : MonoBehaviour
     private bool _cinematicActive;
     private bool _cinematicActiveAndNotPiloting;
     private float _defaultNearClip;
-    private float _cinematicNearClip = 0.09f;
+    private float _cinematicNearClip = 0.15f;
 
     private void Start()
     {
