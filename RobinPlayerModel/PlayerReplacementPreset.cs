@@ -127,7 +127,8 @@ public sealed class PlayerReplacementPreset
         currentMesh.sharedMesh = referenceMesh.sharedMesh;
         currentMesh.sharedMaterials = referenceMesh.sharedMaterials;
         currentMesh.bones = bones;
-        currentMesh.localBounds = referenceMesh.localBounds;
+        // currentMesh.localBounds = referenceMesh.localBounds;
+        currentMesh.localBounds = new Bounds(Vector3.zero, Vector3.one * 5);
         currentMesh.quality = referenceMesh.quality;
         currentMesh.rootBone = boneMap[referenceMesh.rootBone.name];
     }
