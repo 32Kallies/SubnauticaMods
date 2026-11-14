@@ -5,7 +5,7 @@
         <AssemblyName>RobinPlayerModel</AssemblyName>
         <Version>1.0.0</Version>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-        <LangVersion>11</LangVersion>
+        <LangVersion>14</LangVersion>
         <RootNamespace>RobinPlayerModel</RootNamespace>
         <BepInExPluginName>Robin Player Model</BepInExPluginName>
         <BepInExPluginGuid>com.kallie23.RobinPlayerModel</BepInExPluginGuid>

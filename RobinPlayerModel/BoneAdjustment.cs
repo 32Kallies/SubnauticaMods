@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace RobinPlayerModel;
 
-public class BoneAdjustment
+public sealed class BoneAdjustment
 {
     public Vector3 Position { get; init; }
     public AdjustmentMode PositionAdjustmentMode { get; init; }
