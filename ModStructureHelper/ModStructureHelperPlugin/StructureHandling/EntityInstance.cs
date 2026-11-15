@@ -18,6 +18,8 @@ public class EntityInstance : MonoBehaviour
     public Entity.Priority Priority { get; set; }
 
     private Rigidbody _rigidbody;
+
+    private const float MinColliderSizeSqr = 0.001f;
     
     private void Awake()
     {
@@ -35,21 +37,48 @@ public class EntityInstance : MonoBehaviour
 
         StructureInstance.OnStructureInstanceChanged += OnStructureInstanceChanged;
 
+        var hasAnyCollisions = HasAnyCollisions();
         var hasSolidCollisions = HasSolidCollisions();
-        var hasNoRenderers = false;
+        bool hasNoRenderers;
         
-        AccountForLackOfCollisions(hasSolidCollisions);
+        AccountForLackOfCollisions(hasAnyCollisions);
 
         var renderers = GetComponentsInChildren<Renderer>();
-        if (renderers.Length == 0 || renderers.All(r => !r.enabled || r.bounds.size.sqrMagnitude == 0))
+        bool hasAnyParticle = false;
+        if (renderers.Length == 0)
         {
             hasNoRenderers = true;
         }
+        else
+        {
+            bool hasAnyRenderer = false;
+            foreach (var renderer in renderers)
+            {
+                if (renderer is ParticleSystemRenderer)
+                {
+                    hasAnyParticle = true;
+                    continue;
+                }
 
-        if (!hasSolidCollisions || hasNoRenderers)
+                if (renderer.enabled && renderer.bounds.size.sqrMagnitude != 0)
+                {
+                    hasAnyRenderer = true;
+                }
+            }
+
+            hasNoRenderers = !hasAnyRenderer;
+        }
+
+        if (!hasAnyCollisions || hasNoRenderers)
         {
             var pivotCircle = gameObject.AddComponent<ObjectPivotCircle>();
             pivotCircle.showName = hasNoRenderers;
+            pivotCircle.isParticle = hasAnyParticle;
+        }
+
+        if (!hasSolidCollisions)
+        {
+            
         }
 
         _rigidbody = GetComponent<Rigidbody>();
@@ -71,16 +100,37 @@ public class EntityInstance : MonoBehaviour
         selectionCollider.managedCollider = collider;
     }
 
-    private bool HasSolidCollisions()
+    private bool HasAnyCollisions()
     {
-        if (GetComponentInChildren<Collider>() == null)
+        var childCollider = GetComponentInChildren<Collider>();
+        if (childCollider == null)
         {
             return false;
         }
 
+        if (childCollider.bounds.size.sqrMagnitude < MinColliderSizeSqr)
+        {
+            foreach (var anyCollider in GetComponentsInChildren<Collider>())
+            {
+                if (anyCollider.bounds.size.sqrMagnitude > MinColliderSizeSqr)
+                    return true;
+            }
+
+            return false;
+        }
+        
         return true;
-        // we COULD discount triggers but meh
-        // return GetComponentsInChildren<Collider>().Any(collider => !collider.isTrigger);
+    }
+    
+    private bool HasSolidCollisions()
+    {
+        var colliders = GetComponentsInChildren<Collider>();
+        foreach (var collider in colliders)
+        {
+            if (!collider.isTrigger) return true;
+        }
+
+        return false;
     }
     
     public Entity GetEntityDataStruct()
