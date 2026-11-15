@@ -35,7 +35,12 @@ public class EntityInstance : MonoBehaviour
         }
 
         StructureInstance.OnStructureInstanceChanged += OnStructureInstanceChanged;
+        
+        SetUpObjectForEditing();
+    }
 
+    private void SetUpObjectForEditing()
+    {
         var hasAnyCollisions = HasAnyCollisions();
         var hasSolidCollisions = HasSolidCollisions();
         bool hasNoRenderers;
@@ -72,7 +77,20 @@ public class EntityInstance : MonoBehaviour
         {
             var pivotCircle = gameObject.AddComponent<ObjectPivotCircle>();
             pivotCircle.showName = hasNoRenderers;
-            pivotCircle.isParticle = hasAnyParticle;
+            if (hasAnyParticle)
+            {
+                pivotCircle.type = ObjectPivotCircle.IconType.Particle;   
+            }
+            else if (!hasAnyCollisions)
+            {
+                var light = GetComponentInChildren<Light>();
+                if (light != null)
+                {
+                    pivotCircle.type = ObjectPivotCircle.IconType.Light;
+                    Color.RGBToHSV(light.color, out float h, out float s, out _);
+                    pivotCircle.color = Color.HSVToRGB(h, s, 1);
+                }
+            }
         }
 
         if (hasAnyCollisions && (Plugin.ModConfig.AlwaysRenderSelectedTriggerColliders || !hasSolidCollisions))
@@ -85,8 +103,6 @@ public class EntityInstance : MonoBehaviour
 
         var liveMixin = GetComponent<LiveMixin>();
         if (liveMixin) liveMixin.invincible = true;
-
-        // DestroyImmediate(lwe);
     }
 
     private void AccountForLackOfCollisions(bool hasSolidCollisions)

@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace ModStructureHelperPlugin.Utility;
 
@@ -138,6 +140,8 @@ public static class ColliderRendering
         {
             get => m_collider.isTrigger;
         }
+        
+        public Color PersistentColor { get; }
 
         #endregion
 
@@ -242,7 +246,22 @@ public static class ColliderRendering
         {
         }
 
-        internal BaseDebugCollider(Collider collider) => this.m_collider = collider;
+        internal BaseDebugCollider(Collider collider)
+        {
+            m_collider = collider;
+            if (collider != null)
+            {
+                PersistentColor = GetVisualizerColor(collider.gameObject.name);
+            }
+        }
+        
+        private static Color GetVisualizerColor(string identifierName)
+        {
+            var hash = StringComparer.OrdinalIgnoreCase.GetHashCode(identifierName);
+            float hue = Mathf.Abs(hash % 1000) / 1000f;
+            var color = Color.HSVToRGB(hue, 0.8f, 1f);
+            return color.WithAlpha(0.1f);
+        }
     }
 
     public abstract class BaseDebugCollider<T> : BaseDebugCollider where T : Collider

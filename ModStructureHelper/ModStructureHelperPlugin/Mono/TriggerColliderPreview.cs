@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ModStructureHelperPlugin.Interfaces;
 using ModStructureHelperPlugin.Utility;
 using Nautilus.Utility;
@@ -30,10 +31,10 @@ public class TriggerColliderPreview : MonoBehaviour, ISelectionListener
         {
             collider.CreateVisual();
             collider.SetMaterial(MaterialUtils.StasisFieldMaterial);
-            collider.SetColor(new Color(1f, 0.5f, 0, 0.1f));
+            collider.SetColor(collider.PersistentColor);
         }
     }
-
+    
     public void OnObjectDeselected()
     {
         foreach (var collider in _colliders)

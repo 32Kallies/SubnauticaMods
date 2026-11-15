@@ -30,7 +30,7 @@ public class OverlayIconInstance : MonoBehaviour
         SetPositionAndScale(screenPoint);
         labelText.text = _data.Label;
         iconImage.sprite = _data.Icon;
-        var color = new Color(1, 1, 1, GetDistanceAlphaBlend(screenPoint.z));
+        var color = _data.Color.WithAlpha(GetDistanceAlphaBlend(screenPoint.z));
         iconImage.color = color;
         labelText.color = color;
     }
