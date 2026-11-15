@@ -57,8 +57,6 @@ public sealed class DestroyPropsInRange : MonoBehaviour, IScheduledUpdateBehavio
 
     private void SafeDestroy(GameObject go)
     {
-        if (go.GetComponent<LiveMixin>())
-            return;
         if (go.transform.parent != null && go.transform.parent.GetComponent<ChildObjectIdentifier>())
             return;
         var rb = go.GetComponent<Rigidbody>();
