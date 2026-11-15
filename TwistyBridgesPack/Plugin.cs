@@ -94,7 +94,7 @@ public class Plugin : BaseUnityPlugin
         { "deeptwistybridges_plant_bulb_01", "Deep Bulbs" },
         { "deeptwistybridges_plant_tentacles_01", "Deep Tentacles" },
         { "deeptwistybridges_roots_medium_01", "Deep Roots" },
-        { "Shared", "Luna Plants" },
+        { "Shared", "Misc Plants" },
         { "twistybridges_barnacles_01", "Barnacles" },
         { "twistybridges_brain_coral_plate_01", "Brain Coral Plate" },
         { "twistybridges_bridges_01", "Bridges" },
@@ -107,6 +107,7 @@ public class Plugin : BaseUnityPlugin
         { "twistybridges_mushroom_01", "Bullseye shroom" },
         { "twistybridges_plant_cliff_01", "Crescent Moon Coral" },
         { "twistybridges_plant_large_01", "Twisted Mandrake" },
-        { "twistybridges_rocks", "Rocks" }
+        { "twistybridges_rocks", "Rocks" },
+        { "Thermalzone", "Thermal Vents" }
     };
 }
