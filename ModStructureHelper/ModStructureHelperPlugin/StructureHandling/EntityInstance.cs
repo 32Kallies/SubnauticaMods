@@ -65,7 +65,8 @@ public class EntityInstance : MonoBehaviour
     {
         if (hasSolidCollisions) return;
         var collider = gameObject.AddComponent<SphereCollider>();
-        collider.radius = 1;
+        collider.radius = 0.5f;
+        collider.center = Vector3.zero;
         var selectionCollider = gameObject.AddComponent<EnableColliderForSelection>();
         selectionCollider.managedCollider = collider;
     }

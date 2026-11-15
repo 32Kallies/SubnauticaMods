@@ -64,7 +64,7 @@ public class EnableColliderForSelection : MonoBehaviour, ITransformationListener
     {
         var thisObjectScale = (transform.lossyScale.x + transform.lossyScale.y + transform.lossyScale.z) / 3f;
         // what even are these random numbers I chose?
-        managedCollider.radius = Mathf.Clamp(1f / thisObjectScale, 0.00001f, 100000f);
+        managedCollider.radius = Mathf.Clamp(0.5f / thisObjectScale, 0.00001f, 100000f);
     }
 
     public void OnStartTransforming()
