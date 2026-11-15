@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using ModStructureFormatV2;
+﻿using ModStructureFormatV2;
 using ModStructureHelperPlugin.Mono;
 using UnityEngine;
 
@@ -76,9 +75,9 @@ public class EntityInstance : MonoBehaviour
             pivotCircle.isParticle = hasAnyParticle;
         }
 
-        if (!hasSolidCollisions)
+        if (hasAnyCollisions && (Plugin.ModConfig.AlwaysRenderSelectedTriggerColliders || !hasSolidCollisions))
         {
-            
+            gameObject.AddComponent<TriggerColliderPreview>();
         }
 
         _rigidbody = GetComponent<Rigidbody>();

@@ -23,6 +23,8 @@ public class ModConfig : ConfigFile
     public bool LockToolsWhileEntityBrowserIsActive = false;
     [Toggle("Click off to unselect")]
     public bool ClickOffToUnselect = true;
+    [Toggle("Render all triggers on selected objects")]
+    public bool AlwaysRenderSelectedTriggerColliders = false;
     [Toggle("Autosave structures on load")]
     public bool AutosaveStructureOnLoad = true;
     [Toggle("Autosave structures periodically")]
