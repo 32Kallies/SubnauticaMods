@@ -95,69 +95,6 @@ public class Plugin : BaseUnityPlugin
             },
             RigAdjustments = new Dictionary<string, BoneAdjustment>(StringComparer.Ordinal)
             {
-                /*
-                {
-                    "neck", new BoneAdjustment
-                    {
-                        RotationAdjustmentMode = AdjustmentMode.Offset,
-                        Rotation = new Vector3(0, 0, 27)
-                    }
-                },*/
-                // DON'T TOUCH "neck", "chest", "clav_L", or "clav_R"
-                /*
-                {
-                    "clav_L", new BoneAdjustment
-                    {
-                        PositionAdjustmentMode = AdjustmentMode.Offset,
-                        Position = new Vector3(-0.02f, 0, -0.02f)
-                    }
-                },
-                {
-                    "clav_R", new BoneAdjustment
-                    {
-                        PositionAdjustmentMode = AdjustmentMode.Offset,
-                        Position = new Vector3(-0.02f, 0, 0.02f)
-                    }
-                },
-                */
-                /*
-                {
-                    "spine_3", new BoneAdjustment
-                    {
-                        PositionAdjustmentMode = AdjustmentMode.Offset,
-                        Position = new Vector3(0.02f, 0, 0)
-                    }
-                },
-                {
-                    "spine_2", new BoneAdjustment
-                    {
-                        // RotationAdjustmentMode = AdjustmentMode.Offset,
-                        // Rotation = new Vector3(0, 50, 0),
-                        PositionAdjustmentMode = AdjustmentMode.Offset,
-                        Position = new Vector3(-0.03f, 0, 0)
-                    }
-                },
-                {
-                    "spine_1", new BoneAdjustment
-                    {
-                        // RotationAdjustmentMode = AdjustmentMode.Offset,
-                        // Rotation = new Vector3(0, -20, 0),
-                        PositionAdjustmentMode = AdjustmentMode.Offset,
-                        Position = new Vector3(-0.02f, 0, 0.02f)
-                    }
-                }
-                */
-                /*
-                {
-                    "spine_1", new BoneAdjustment
-                    {
-                        // RotationAdjustmentMode = AdjustmentMode.Offset,
-                        // Rotation = new Vector3(0, -20, 0),
-                        PositionAdjustmentMode = AdjustmentMode.Offset,
-                        Position = new Vector3(-0.02f, 0, 0.02f)
-                    }
-                }
-                */
                 {
                     "neck", new BoneAdjustment
                     {
