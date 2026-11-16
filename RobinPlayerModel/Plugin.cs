@@ -226,19 +226,18 @@ public class Plugin : BaseUnityPlugin
             ],
             FalseBones =
             [
-                //TODO: add radiation suit
                 new FalseBone
                 {
                     BoneName = "clav_L_BreastFix",
                     RyleyMeshesToApplyTo =
-                        ["diveSuit_body_geo", "reinforced_suit_01_body_geo", "still_suit_01_body_geo"],
+                        ["diveSuit_body_geo", "reinforced_suit_01_body_geo", "still_suit_01_body_geo", "radiationSuit_body_geo"],
                     OriginalBoneName = "clav_L"
                 },
                 new FalseBone
                 {
                     BoneName = "clav_R_BreastFix",
                     RyleyMeshesToApplyTo =
-                        ["diveSuit_body_geo", "reinforced_suit_01_body_geo", "still_suit_01_body_geo"],
+                        ["diveSuit_body_geo", "reinforced_suit_01_body_geo", "still_suit_01_body_geo", "radiationSuit_body_geo"],
                     OriginalBoneName = "clav_R"
                 }
             ],
