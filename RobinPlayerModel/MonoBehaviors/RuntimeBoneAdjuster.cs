@@ -1,6 +1,7 @@
+using RobinPlayerModel.DataObjects;
 using UnityEngine;
 
-namespace RobinPlayerModel;
+namespace RobinPlayerModel.MonoBehaviors;
 
 public class RuntimeBoneAdjuster : MonoBehaviour
 {

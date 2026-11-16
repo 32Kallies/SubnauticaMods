@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using BZtoSNLoader;
 using Nautilus.Extensions;
+using RobinPlayerModel.DataObjects;
+using RobinPlayerModel.MonoBehaviors;
 using UnityEngine;
 
 namespace RobinPlayerModel;

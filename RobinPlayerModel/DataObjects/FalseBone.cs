@@ -1,4 +1,4 @@
-namespace RobinPlayerModel;
+namespace RobinPlayerModel.DataObjects;
 
 public class FalseBone
 {

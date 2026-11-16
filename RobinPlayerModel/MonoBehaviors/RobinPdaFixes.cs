@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RobinPlayerModel;
+namespace RobinPlayerModel.MonoBehaviors;
 
 public class RobinPdaFixes : MonoBehaviour
 {
