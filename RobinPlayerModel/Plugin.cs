@@ -6,7 +6,9 @@ using BepInEx.Logging;
 using BZtoSNLoader;
 using HarmonyLib;
 using Nautilus.Extensions;
+using Nautilus.Handlers;
 using Nautilus.Utility;
+using RobinPlayerModel.Localization;
 using UnityEngine;
 
 namespace RobinPlayerModel;
@@ -14,6 +16,7 @@ namespace RobinPlayerModel;
 [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
 [BepInDependency("com.snmodding.nautilus", "1.0.0.56")]
 [BepInDependency("com.snmodding.BZtoSNLoader")]
+[BepInDependency("Indigocoder.SuitLib", BepInDependency.DependencyFlags.SoftDependency)]
 public class Plugin : BaseUnityPlugin
 {
     public new static ManualLogSource Logger { get; private set; }
@@ -242,9 +245,15 @@ public class Plugin : BaseUnityPlugin
             FinalTouches = ApplyFinalTouches
         };
 
-        // register harmony patches, if there are any
+        WaitScreenHandler.RegisterEarlyLoadTask(PluginInfo.PLUGIN_NAME, EarlyLoadScreenTask);
         Harmony.CreateAndPatchAll(Assembly, $"{PluginInfo.PLUGIN_GUID}");
         Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
+    }
+
+    private static void EarlyLoadScreenTask(WaitScreenHandler.WaitScreenTask task)
+    {
+        ReplaceRyleyName.ReplaceNameOfRyleyEverywhere();
+        SuitLibCompat.RegisterCacheHoldIfInstalled(() => ReplacementPreset.ChangesCompleted);
     }
 
     private void ApplyFinalTouches(GameObject playerView)

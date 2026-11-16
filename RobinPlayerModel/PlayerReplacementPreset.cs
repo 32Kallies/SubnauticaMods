@@ -16,10 +16,12 @@ public sealed class PlayerReplacementPreset
     public required FalseBone[] FalseBones { get; init; }
     public required Action<GameObject> FinalTouches { get; init; }
 
+    public bool ChangesCompleted { get; private set; }
     private const bool Verbose = true;
 
     public IEnumerator ReplacePlayerModel(Player player)
     {
+        ChangesCompleted = false;
         if (Replacements.Length == 0)
         {
             Plugin.Logger.LogWarning("Player Replacement preset has no replacements defined. Skipping.");
@@ -105,6 +107,10 @@ public sealed class PlayerReplacementPreset
             Plugin.Logger.LogInfo($"Replaced {replacements} meshes on the Player");
         
         FinalTouches.Invoke(sn1PlayerView.gameObject);
+        
+        SuitLibCompat.RefreshSuitLibForNewPlayerModelIfInstalled();
+
+        ChangesCompleted = true;
     }
 
     private void OverrideSkinnedMeshRenderer(SkinnedMeshRenderer currentMesh, SkinnedMeshRenderer referenceMesh, Dictionary<string, Transform> boneMap)
