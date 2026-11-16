@@ -1,6 +1,6 @@
 namespace RobinPlayerModel.DataObjects;
 
-public class FalseBone
+public sealed class FalseBone
 {
     public required string BoneName { get; init; }
     public required string OriginalBoneName { get; init; }

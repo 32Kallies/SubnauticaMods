@@ -3,7 +3,10 @@ using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
 using Nautilus.Handlers;
+using Nautilus.Utility;
+using RobinPlayerModel.Audio;
 using RobinPlayerModel.Localization;
+using UnityEngine;
 
 namespace RobinPlayerModel;
 
@@ -16,13 +19,16 @@ public class Plugin : BaseUnityPlugin
     public new static ManualLogSource Logger { get; private set; }
 
     private static Assembly Assembly { get; } = Assembly.GetExecutingAssembly();
+    
+    internal static AssetBundle SoundsBundle { get; private set; }
 
     internal static PlayerReplacementPreset ReplacementPreset { get; private set; }
 
     private void Awake()
     {
-        // set project-scoped logger instance
         Logger = base.Logger;
+
+        SoundsBundle = AssetBundleLoadingUtils.LoadFromAssetsFolder(Assembly, "robin_player_sn1");
 
         ReplacementPreset = EssentialRobinModelData.GetRobinModelPreset();
 
@@ -35,5 +41,6 @@ public class Plugin : BaseUnityPlugin
     {
         ReplaceRyleyName.ReplaceNameOfRyleyEverywhere();
         SuitLibCompat.RegisterCacheHoldIfInstalled(() => ReplacementPreset.ChangesCompleted);
+        FemaleSoundReplacements.ReplaceSounds();
     }
 }
