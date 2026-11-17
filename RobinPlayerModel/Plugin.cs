@@ -31,6 +31,8 @@ public class Plugin : BaseUnityPlugin
         SoundsBundle = AssetBundleLoadingUtils.LoadFromAssetsFolder(Assembly, "robin_player_sn1");
 
         ReplacementPreset = EssentialRobinModelData.GetRobinModelPreset();
+        
+        SuitLibCompat.OverrideSuitMaterialIndicesIfInstalled();
 
         WaitScreenHandler.RegisterEarlyLoadTask(PluginInfo.PLUGIN_NAME, EarlyLoadScreenTask);
         Harmony.CreateAndPatchAll(Assembly, $"{PluginInfo.PLUGIN_GUID}");

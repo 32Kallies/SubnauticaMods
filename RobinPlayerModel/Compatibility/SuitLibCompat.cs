@@ -1,5 +1,6 @@
 using System;
 using BepInEx.Bootstrap;
+using SuitLib.API;
 
 namespace RobinPlayerModel;
 
@@ -20,5 +21,13 @@ public static class SuitLibCompat
     {
         if (!IsSuitLibInstalled()) return;
         SuitLib.API.CacheHoldManager.RegisterCacheHold(completionCondition);
+    }
+
+    public static void OverrideSuitMaterialIndicesIfInstalled()
+    {
+        if (!IsSuitLibInstalled()) return;
+        MaterialIndexManager.SetBodyTextureIndexRemap(ModdedSuitsManager.VanillaModel.Dive, [1, 2]);
+        MaterialIndexManager.SetArmTextureIndexRemap(ModdedSuitsManager.VanillaModel.Dive, [0, 3]);
+        MaterialIndexManager.SetGloveTextureIndexRemap(ModdedSuitsManager.VanillaModel.Dive, [0, 1]);
     }
 }
