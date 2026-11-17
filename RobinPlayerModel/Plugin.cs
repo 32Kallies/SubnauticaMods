@@ -32,8 +32,6 @@ public class Plugin : BaseUnityPlugin
 
         ReplacementPreset = EssentialRobinModelData.GetRobinModelPreset();
         
-        SuitLibCompat.OverrideSuitMaterialIndicesIfInstalled();
-
         WaitScreenHandler.RegisterEarlyLoadTask(PluginInfo.PLUGIN_NAME, EarlyLoadScreenTask);
         Harmony.CreateAndPatchAll(Assembly, $"{PluginInfo.PLUGIN_GUID}");
         Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
@@ -42,7 +40,8 @@ public class Plugin : BaseUnityPlugin
     private static void EarlyLoadScreenTask(WaitScreenHandler.WaitScreenTask task)
     {
         ReplaceRyleyName.ReplaceNameOfRyleyEverywhere();
+        SuitLibCompat.OverrideSuitMaterialIndicesIfInstalled();
         SuitLibCompat.RegisterCacheHoldIfInstalled(() => ReplacementPreset.ChangesCompleted);
-        FemaleSoundReplacements.ReplaceSounds();
+        // FemaleSoundReplacements.ReplaceSounds();
     }
 }
