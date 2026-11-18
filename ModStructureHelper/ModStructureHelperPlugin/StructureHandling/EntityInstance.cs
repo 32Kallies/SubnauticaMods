@@ -103,6 +103,8 @@ public class EntityInstance : MonoBehaviour
 
         var liveMixin = GetComponent<LiveMixin>();
         if (liveMixin) liveMixin.invincible = true;
+        
+        DestroyImmediate(GetComponent<EntitySlot>());
     }
 
     private void AccountForLackOfCollisions(bool hasSolidCollisions)
