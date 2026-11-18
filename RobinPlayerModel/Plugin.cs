@@ -42,6 +42,6 @@ public class Plugin : BaseUnityPlugin
         ReplaceRyleyName.ReplaceNameOfRyleyEverywhere();
         SuitLibCompat.OverrideSuitMaterialIndicesIfInstalled();
         SuitLibCompat.RegisterCacheHoldIfInstalled(() => ReplacementPreset.ChangesCompleted);
-        // FemaleSoundReplacements.ReplaceSounds();
+        FemaleSoundReplacements.ReplaceSounds();
     }
 }

@@ -16,7 +16,7 @@ public class UnusedEntitiesExporter : IEntityExporter
         foreach (var input in inputBatches)
         {
             parser.SetCurrentBatch(input);
-
+            
             foreach (var cell in parser.ReadCells())
             {
                 foreach (var entity in cell.ReadEntities())
