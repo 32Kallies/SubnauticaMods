@@ -160,6 +160,8 @@ public sealed class PlayerReplacementPreset
                 adjuster.position = adjust.Position;
                 adjuster.rotationMode = adjust.RotationAdjustmentMode;
                 adjuster.rotation = adjust.Rotation;
+                adjuster.disableInThirdPerson = adjust.DisableInThirdPerson;
+                adjuster.cameraPositionBone = rigRoot.SearchChild("cam_offset");
             }
         }
 

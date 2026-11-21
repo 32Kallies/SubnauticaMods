@@ -145,7 +145,8 @@ public static class EssentialRobinModelData
                         PositionAdjustmentMode = AdjustmentMode.Offset,
                         Position = new Vector3(0.01f, -0.01f, 0),
                         RotationAdjustmentMode = AdjustmentMode.Offset,
-                        Rotation = new Vector3(0.13f, 358.78f, 15) // 2.82f),
+                        Rotation = new Vector3(0.13f, 358.78f, 15),
+                        DisableInThirdPerson = true
                     }
                 },
                 {
@@ -155,6 +156,7 @@ public static class EssentialRobinModelData
                         Position = new Vector3(0.07f, 0.03f, 0),
                         RotationAdjustmentMode = AdjustmentMode.Offset,
                         Rotation = new Vector3(0, 0, 0),
+                        DisableInThirdPerson = true
                     }
                 },
                 {

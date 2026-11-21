@@ -5,6 +5,7 @@ using HarmonyLib;
 using Nautilus.Handlers;
 using Nautilus.Utility;
 using RobinPlayerModel.Audio;
+using RobinPlayerModel.Compatibility;
 using RobinPlayerModel.Localization;
 using UnityEngine;
 
@@ -43,5 +44,6 @@ public class Plugin : BaseUnityPlugin
         SuitLibCompat.OverrideSuitMaterialIndicesIfInstalled();
         SuitLibCompat.RegisterCacheHoldIfInstalled(() => ReplacementPreset.ChangesCompleted);
         FemaleSoundReplacements.ReplaceSounds();
+        ThirdPersonCompat.InitializeCompatibility();
     }
 }

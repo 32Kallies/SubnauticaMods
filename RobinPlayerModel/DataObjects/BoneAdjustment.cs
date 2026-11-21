@@ -9,6 +9,8 @@ public sealed class BoneAdjustment
     
     public Vector3 Rotation { get; init; }
     public AdjustmentMode RotationAdjustmentMode { get; init; }
+    
+    public bool DisableInThirdPerson { get; init; }
 }
 
 public enum AdjustmentMode
