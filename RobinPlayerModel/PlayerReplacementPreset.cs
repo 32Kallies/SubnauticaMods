@@ -165,8 +165,8 @@ public sealed class PlayerReplacementPreset
             }
         }
 
-        return;
         // OLD code to copy *entire* BZ rig
+        /*
         foreach (Transform child in rigRoot.GetComponentsInChildren<Transform>())
         {
             var name = child.name;
@@ -188,7 +188,7 @@ public sealed class PlayerReplacementPreset
             Vector3 eulerDifference = difference.eulerAngles;
             adjuster.rotation = eulerDifference;
         }
-        return;
+        */
     }
 
     private Dictionary<string, Transform> GetBoneMap(Transform rig)
