@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
@@ -45,7 +46,7 @@ public class Plugin : BaseUnityPlugin
         Harmony.CreateAndPatchAll(Assembly, $"{PluginInfo.PLUGIN_GUID}");
         Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
 
-        UWE.CoroutineHost.StartCoroutine(AddEcoTargetTypesToClownPincherFood());
+        WaitScreenHandler.RegisterAsyncLoadTask(PluginInfo.PLUGIN_NAME, _ => AddEcoTargetTypesToClownPincherFood());
         #if SUBNAUTICA
         WaitScreenHandler.RegisterAsyncLoadTask(PluginInfo.PLUGIN_NAME, _ => ModifyBloomPlankton());
         #endif
@@ -61,10 +62,12 @@ public class Plugin : BaseUnityPlugin
     {
         foreach (var techType in ClownPincherCreature.ClownPincherFoods)
         {
+            if (string.IsNullOrEmpty(CraftData.GetClassIdForTechType(techType))) continue;
             var task = CraftData.GetPrefabForTechTypeAsync(techType);
             yield return task;
             var result = task.GetResult();
-            if (result) result.AddComponent<EcoTarget>().type = ClownPincherFoodEcoTargetType;
+            if (result && !result.GetComponents<EcoTarget>().Any(ecoTarget => ecoTarget.type == ClownPincherFoodEcoTargetType))
+                result.AddComponent<EcoTarget>().type = ClownPincherFoodEcoTargetType;
         }
     }
 
