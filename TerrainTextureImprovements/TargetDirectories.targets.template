@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <!-->Modify this path to match your game installation</!-->
+        <ModDir>C:\Program Files (x86)\Steam\steamapps\common\Subnautica\BepInEx\plugins\$(AssemblyName)</ModDir>
+         <!-->Modify this path to match the path to the asset bundles output folder</!-->
+        <UnityProjectPath>C:\Users\Kallie\Documents\GitHub\SubnauticaModAssets\SubnauticaModBundles\AssetBundles\StandaloneWindows</UnityProjectPath>
+    </PropertyGroup>
+</Project>
