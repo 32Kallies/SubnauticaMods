@@ -46,8 +46,8 @@ public class Plugin : BaseUnityPlugin
         Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
 
         UWE.CoroutineHost.StartCoroutine(AddEcoTargetTypesToClownPincherFood());
-        #if SN1
-        UWE.CoroutineHost.StartCoroutine(ModifyBloomPlankton());
+        #if SUBNAUTICA
+        WaitScreenHandler.RegisterAsyncLoadTask(PluginInfo.PLUGIN_NAME, _ => ModifyBloomPlankton());
         #endif
 
         CreatureSpawnsToggler.CollectCreatures();
@@ -68,15 +68,16 @@ public class Plugin : BaseUnityPlugin
         }
     }
 
+#if SUBNAUTICA
     private IEnumerator ModifyBloomPlankton()
     {
         var task = CraftData.GetPrefabForTechTypeAsync(TechType.Bloom);
         yield return task;
         var result = task.GetResult();
-        if (!result) yield break;
-        var locomotion = result.GetComponent<Locomotion>();
+        if (!result || !result.TryGetComponent<Locomotion>(out var locomotion)) yield break;
         locomotion.forwardRotationSpeed = 0.001f;
         locomotion.upRotationSpeed = 0.001f;
-        result.GetComponent<Rigidbody>().maxAngularVelocity = 1;
+        if (result.TryGetComponent<Rigidbody>(out var rigidbody)) rigidbody.maxAngularVelocity = 1;
     }
+#endif
 }
