@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Linq;
 using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
@@ -71,8 +70,7 @@ public class Plugin : BaseUnityPlugin
             var task = CraftData.GetPrefabForTechTypeAsync(techType);
             yield return task;
             var result = task.GetResult();
-            if (result && !result.GetComponents<EcoTarget>().Any(ecoTarget => ecoTarget.type == ClownPincherFoodEcoTargetType))
-                result.AddComponent<EcoTarget>().type = ClownPincherFoodEcoTargetType;
+            if (result) result.EnsureComponent<EcoTarget>().type = ClownPincherFoodEcoTargetType;
         }
     }
 
