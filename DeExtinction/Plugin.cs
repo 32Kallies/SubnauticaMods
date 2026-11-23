@@ -46,16 +46,21 @@ public class Plugin : BaseUnityPlugin
         Harmony.CreateAndPatchAll(Assembly, $"{PluginInfo.PLUGIN_GUID}");
         Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
 
-        WaitScreenHandler.RegisterAsyncLoadTask(PluginInfo.PLUGIN_NAME, _ => AddEcoTargetTypesToClownPincherFood());
-        #if SUBNAUTICA
-        WaitScreenHandler.RegisterAsyncLoadTask(PluginInfo.PLUGIN_NAME, _ => ModifyBloomPlankton());
-        #endif
+        WaitScreenHandler.RegisterEarlyAsyncLoadTask(PluginInfo.PLUGIN_NAME, _ => ModifyBaseGamePrefabs());
 
         CreatureSpawnsToggler.CollectCreatures();
         CreatureSpawnsToggler.CreateModOptions(Config);
         CreatureSpawns.RegisterLootDistribution();
         CreatureSpawns.RegisterCoordinatedSpawns();
         CreatureSpawns.ModifyBaseGameSpawns();
+    }
+
+    private IEnumerator ModifyBaseGamePrefabs()
+    {
+        yield return AddEcoTargetTypesToClownPincherFood();
+        #if SUBNAUTICA
+        yield return ModifyBloomPlankton();
+        #endif
     }
 
     private IEnumerator AddEcoTargetTypesToClownPincherFood()
