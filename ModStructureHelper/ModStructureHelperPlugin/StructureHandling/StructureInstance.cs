@@ -14,13 +14,13 @@ namespace ModStructureHelperPlugin.StructureHandling;
 
 public class StructureInstance : MonoBehaviour, IScheduledUpdateBehaviour
 {
-    public static StructureInstance Main;
+    public static StructureInstance Main { get; private set; }
     
-    public Structure data;
-    public string path;
-    public string structureName;
+    public Structure Data { get; private set; }
+    public string StructureFilePath { get; private set; }
+    public string StructureName { get; private set; }
     
-    private List<ManagedEntity> _managedEntities = new List<ManagedEntity>();
+    private List<ManagedEntity> _managedEntities = new();
 
     public delegate void OnStructureInstanceChangedHandler(StructureInstance newInstance);
     public static event OnStructureInstanceChangedHandler OnStructureInstanceChanged;
@@ -36,9 +36,9 @@ public class StructureInstance : MonoBehaviour, IScheduledUpdateBehaviour
         }
 
         var instance = new GameObject("StructureInstance").AddComponent<StructureInstance>();
-        instance.data = data;
-        instance.path = path;
-        instance.structureName = Path.GetFileNameWithoutExtension(path);
+        instance.Data = data;
+        instance.StructureFilePath = path;
+        instance.StructureName = Path.GetFileNameWithoutExtension(path);
         
         instance._managedEntities = new List<ManagedEntity>(data.Entities.Select(e => new ManagedEntity(e)));
         
@@ -77,7 +77,7 @@ public class StructureInstance : MonoBehaviour, IScheduledUpdateBehaviour
             return;
         }
         Main.Save(false);
-        ErrorMessage.AddMessage($"Successfully saved to path '{Main.path}.'");
+        ErrorMessage.AddMessage($"Successfully saved to path '{Main.StructureFilePath}.'");
     }
     
     public static void Autosave()
@@ -101,7 +101,7 @@ public class StructureInstance : MonoBehaviour, IScheduledUpdateBehaviour
         return obj;
     }
     
-    public Structure GetCurrentStructureData()
+    private Structure RebuildStructureDataWithAllEntities()
     {
         var savedEntities = new Entity[_managedEntities.Count];
         for (var i = 0; i < _managedEntities.Count; i++)
@@ -115,7 +115,7 @@ public class StructureInstance : MonoBehaviour, IScheduledUpdateBehaviour
                 savedEntities[i] = _managedEntities[i].EntityData;
             }
         }
-        return new Structure(savedEntities, data.Metadata ?? new Dictionary<string, string>());
+        return new Structure(savedEntities, Data.Metadata ?? new Dictionary<string, string>());
     }
 
     public bool IsEntityPartOfStructure(string id)
@@ -158,13 +158,13 @@ public class StructureInstance : MonoBehaviour, IScheduledUpdateBehaviour
 
     private void Save(bool autosave)
     {
-        GetCurrentStructureData().SaveToFile(autosave ? GetAutosaveFilePath() : path);
+        RebuildStructureDataWithAllEntities().SaveToFile(autosave ? GetAutosaveFilePath() : StructureFilePath);
     }
     
     private string GetAutosaveFilePath()
     {
         var folder = AutosaveUtils.GetAutoSaveFolderPath();
-        var fileName = structureName + "-" + DateTime.Now.ToString("yyyy-M-d-HH-mm-ss") + ".structure";
+        var fileName = StructureName + "-" + DateTime.Now.ToString("yyyy-M-d-HH-mm-ss") + ".structure";
         return Path.Combine(folder, fileName);
     }
 
@@ -300,8 +300,8 @@ public class StructureInstance : MonoBehaviour, IScheduledUpdateBehaviour
         Plugin.Logger.LogMessage($"{count} entities are currently unloaded:\n" + sb);
     }
     
-    public void SaveMetadata<T>(string key, T value) => data.SaveMetadata(key, value);
-    public bool TryGetMetadata<T>(string key, out T value) => data.TryGetMetadata(key, out value);
+    public void SaveMetadata<T>(string key, T value) => Data.SaveMetadata(key, value);
+    public bool TryGetMetadata<T>(string key, out T value) => Data.TryGetMetadata(key, out value);
 
     public int GetTotalEntityCount() => _managedEntities.Count;
 

@@ -31,14 +31,14 @@ public class CurrentlyEditedStructureText : MonoBehaviour
     {
         if (instance == null)
             return "None";
-        return instance.structureName;
+        return instance.StructureName;
     }
 
     public void OnButtonPressed()
     {
         if (StructureInstance.Main != null)
         {
-            FileExplorerUtils.OpenFolderInExplorer(Path.GetDirectoryName(StructureInstance.Main.path));
+            FileExplorerUtils.OpenFolderInExplorer(Path.GetDirectoryName(StructureInstance.Main.StructureFilePath));
         }
     }
 }

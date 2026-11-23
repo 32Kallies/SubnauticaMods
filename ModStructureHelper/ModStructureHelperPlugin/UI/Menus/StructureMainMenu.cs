@@ -46,7 +46,7 @@ public class StructureMainMenu : StructureHelperMenuBase
             return;
         }
         
-        FileExplorerUtils.OpenFolderInExplorer(Path.GetDirectoryName(StructureInstance.Main.path));
+        FileExplorerUtils.OpenFolderInExplorer(Path.GetDirectoryName(StructureInstance.Main.StructureFilePath));
     }
 
     public void OnButtonInstantiateCurrentStructure()
@@ -70,7 +70,7 @@ public class StructureMainMenu : StructureHelperMenuBase
             return;
         }
 
-        UWE.CoroutineHost.StartCoroutine(EntityUtility.SpawnEntitiesFromStructure(StructureInstance.Main.data));
+        UWE.CoroutineHost.StartCoroutine(EntityUtility.SpawnEntitiesFromStructure(StructureInstance.Main.Data));
     }
 
     public void OnButtonGoToStructureCenter()
