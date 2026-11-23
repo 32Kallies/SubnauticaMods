@@ -14,11 +14,8 @@ public class ClownPincherCreature : Creature
         TechType.SeaTreaderPoop,
         TechType.NutrientBlock,
         TechType.StalkerEgg,
-        TechType.StalkerEggUndiscovered,
         TechType.GasopodEgg,
-        TechType.GasopodEggUndiscovered,
-        TechType.RabbitrayEgg,
-        TechType.RabbitrayEggUndiscovered
+        TechType.RabbitrayEgg
     };
     
     public override void Start()

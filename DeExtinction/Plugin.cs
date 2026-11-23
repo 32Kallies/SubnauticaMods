@@ -66,7 +66,6 @@ public class Plugin : BaseUnityPlugin
     {
         foreach (var techType in ClownPincherCreature.ClownPincherFoods)
         {
-            if (string.IsNullOrEmpty(CraftData.GetClassIdForTechType(techType))) continue;
             var task = CraftData.GetPrefabForTechTypeAsync(techType);
             yield return task;
             var result = task.GetResult();
