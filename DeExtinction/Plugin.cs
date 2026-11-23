@@ -82,10 +82,11 @@ public class Plugin : BaseUnityPlugin
         var task = CraftData.GetPrefabForTechTypeAsync(TechType.Bloom);
         yield return task;
         var result = task.GetResult();
-        if (!result || !result.TryGetComponent<Locomotion>(out var locomotion)) yield break;
+        if (!result) yield break;
+        var locomotion = result.GetComponent<Locomotion>();
         locomotion.forwardRotationSpeed = 0.001f;
         locomotion.upRotationSpeed = 0.001f;
-        if (result.TryGetComponent<Rigidbody>(out var rigidbody)) rigidbody.maxAngularVelocity = 1;
+        result.GetComponent<Rigidbody>().maxAngularVelocity = 1;
     }
 #endif
 }
