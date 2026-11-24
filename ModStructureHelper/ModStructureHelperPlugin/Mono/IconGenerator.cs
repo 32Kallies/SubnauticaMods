@@ -23,6 +23,7 @@ public class IconGenerator : MonoBehaviour
     private static Sprite _lightSprite;
     private static Sprite _particleSprite;
     private static Sprite _soundSprite;
+    private static Sprite _atmosphereVolumeSprite;
     public static EntityIcon ErrorIcon { get; private set; }
 
     private const float TimeOutTime = 1f;
@@ -55,6 +56,7 @@ public class IconGenerator : MonoBehaviour
         _lightSprite = Plugin.AssetBundle.LoadAsset<Sprite>("Icon-Light");
         _soundSprite = Plugin.AssetBundle.LoadAsset<Sprite>("Icon-Audio");
         _particleSprite = Plugin.AssetBundle.LoadAsset<Sprite>("Icon-ParticleSystem");
+        _atmosphereVolumeSprite = Plugin.AssetBundle.LoadAsset<Sprite>("Icon-AtmosphereVolume");
         ErrorIcon = new EntityIconBasic(Plugin.AssetBundle.LoadAsset<Sprite>("Icon-FailedToLoad"));
         _spritesLoaded = true;
     }
@@ -99,55 +101,7 @@ public class IconGenerator : MonoBehaviour
     
     private static IEnumerator GenerateIconForGameObject(GameObject prefab, string classId, IconOutput output)
     {
-        if (_instance == null)
-        {
-            // Create icon generator
-            var obj = new GameObject("Icon Generator");
-            _instance = obj.AddComponent<IconGenerator>();
-            
-            // Set up camera and render texture
-            var camObj = new GameObject("Icon generator camera");
-            camObj.SetActive(false);
-            var camera = camObj.AddComponent<Camera>();
-            camera.enabled = false;
-            var renderTexture = new RenderTexture(256, 256, 32, RenderTextureFormat.Default);
-            _instance.renderTexture = renderTexture;
-            
-            // Set camera settings
-            camera.targetTexture = renderTexture;
-            camera.clearFlags = CameraClearFlags.SolidColor;
-            camera.backgroundColor = Color.clear;
-            camera.renderingPath = RenderingPath.DeferredShading;
-            camera.allowMSAA = false;
-            camera.cullingMask = 1711275799;
-            camera.depthTextureMode = DepthTextureMode.Depth;
-            camera.farClipPlane = 900;
-
-            // Add WBOIT for transparency
-            var mainCamera = MainCamera.camera;
-            if (mainCamera != null)
-            {
-                var wboit = camera.gameObject.AddComponent<IconGeneratorWboit>();
-                wboit.camera = camera;
-                var originalWboit = MainCamera.camera.GetComponent<WBOIT>();
-                wboit.compositeShader = originalWboit.compositeShader;
-            }
-            else
-            {
-                Plugin.Logger.LogError("MainCamera not found; cannot initialize WBOIT with the required materials");
-            }
-            
-            camObj.SetActive(true);
-            
-            // Create scene
-            var sceneParent = new GameObject("Scene parent");
-            camObj.transform.parent = sceneParent.transform;
-            camObj.transform.localEulerAngles = new Vector3(0, 210, 0);
-            _instance.sceneParent = sceneParent;
-            _instance.cam = camera;
-            _instance.sceneParent.transform.parent = _instance.transform;
-            _instance.transform.localPosition = new Vector3(0, 3000, 0);
-        }
+        EnsureIconGeneratorExists();
 
         if (Plugin.ModConfig.UseItemIconsInBrowser && CraftData.entClassTechTable.TryGetValue(classId, out var techType))
         {
@@ -211,6 +165,58 @@ public class IconGenerator : MonoBehaviour
         var icon = new EntityIconBasic(sprite);
         Icons[classId] = icon;
         output.Icon = icon;
+    }
+
+    private static void EnsureIconGeneratorExists()
+    {
+        if (_instance != null) return;
+        
+        // Create icon generator
+        var obj = new GameObject("Icon Generator");
+        _instance = obj.AddComponent<IconGenerator>();
+            
+        // Set up camera and render texture
+        var camObj = new GameObject("Icon generator camera");
+        camObj.SetActive(false);
+        var camera = camObj.AddComponent<Camera>();
+        camera.enabled = false;
+        var renderTexture = new RenderTexture(256, 256, 32, RenderTextureFormat.Default);
+        _instance.renderTexture = renderTexture;
+            
+        // Set camera settings
+        camera.targetTexture = renderTexture;
+        camera.clearFlags = CameraClearFlags.SolidColor;
+        camera.backgroundColor = Color.clear;
+        camera.renderingPath = RenderingPath.DeferredShading;
+        camera.allowMSAA = false;
+        camera.cullingMask = 1711275799;
+        camera.depthTextureMode = DepthTextureMode.Depth;
+        camera.farClipPlane = 900;
+
+        // Add WBOIT for transparency
+        var mainCamera = MainCamera.camera;
+        if (mainCamera != null)
+        {
+            var wboit = camera.gameObject.AddComponent<IconGeneratorWboit>();
+            wboit.camera = camera;
+            var originalWboit = MainCamera.camera.GetComponent<WBOIT>();
+            wboit.compositeShader = originalWboit.compositeShader;
+        }
+        else
+        {
+            Plugin.Logger.LogError("MainCamera not found; cannot initialize WBOIT with the required materials");
+        }
+            
+        camObj.SetActive(true);
+            
+        // Create scene
+        var sceneParent = new GameObject("Scene parent");
+        camObj.transform.parent = sceneParent.transform;
+        camObj.transform.localEulerAngles = new Vector3(0, 210, 0);
+        _instance.sceneParent = sceneParent;
+        _instance.cam = camera;
+        _instance.sceneParent.transform.parent = _instance.transform;
+        _instance.transform.localPosition = new Vector3(0, 3000, 0);
     }
 
     private static Sprite GenerateIconSprite(RenderTexture target)
@@ -280,9 +286,45 @@ public class IconGenerator : MonoBehaviour
 
         if (renderers.Length == 0)
         {
+            // FMOD emitter icons
             if (gameObject.GetComponentInChildren<FMOD_CustomEmitter>() != null)
             {
                 specialIcon = new EntityIconBasic(_soundSprite, SoundColor);
+                return true;
+            }
+
+            // Atmosphere volume icons
+            if (gameObject.TryGetComponent<AtmosphereVolume>(out var volume))
+            {
+                Color color = Color.white;
+                
+                // Attempt to get biome color for atmosphere volume
+                var overrideBiome = volume.overrideBiome;
+                var wbm = WaterBiomeManager.main;
+                if (!string.IsNullOrEmpty(overrideBiome) && wbm != null)
+                {
+                    if (wbm.biomeLookup.TryGetValue(overrideBiome, out var biomeIndex) && biomeIndex != -1
+                        && biomeIndex < wbm.biomeSettings.Count && wbm.biomeSettings[biomeIndex] != null
+                        && wbm.biomeSettings[biomeIndex].settings != null)
+                    {
+                        Color rawColor;
+                        var settings = wbm.biomeSettings[biomeIndex].settings;
+                        // first check emissive color (this is the best measure)
+                        if (settings.emissiveScale > Mathf.Epsilon && settings.emissive.maxColorComponent > Mathf.Epsilon)
+                            rawColor = settings.emissive;
+                        // next, check scattering color
+                        else if (settings.scatteringColor.maxColorComponent > Mathf.Epsilon)
+                            rawColor = settings.scatteringColor;
+                        // finally fall back to White (Black is too dark)
+                        else
+                            rawColor = color;
+
+                        Color.RGBToHSV(rawColor, out float h, out float s, out _);
+                        color = Color.HSVToRGB(h, s, 1);
+                    }
+                }
+
+                specialIcon = new EntityIconBasic(_atmosphereVolumeSprite, color);
                 return true;
             }
         }

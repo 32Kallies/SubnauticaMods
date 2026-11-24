@@ -18,12 +18,12 @@ public static class ComponentStripUtils
         typeof(SkyApplier),
         typeof(ParticleSystem),
         typeof(Light),
-        // Not sure about this one...
         typeof(Animator),
         typeof(CanvasRenderer),
         typeof(Canvas),
         typeof(FMOD_CustomEmitter),
-        typeof(VFXVolumetricLight)
+        typeof(VFXVolumetricLight),
+        typeof(AtmosphereVolume)
     };
 
     public static void StripComponents(GameObject obj)
