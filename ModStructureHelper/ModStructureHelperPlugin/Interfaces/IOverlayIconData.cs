@@ -9,6 +9,5 @@ public interface IOverlayIconData
     public Sprite Icon { get; }
     public Vector3 Position { get; }
     public Color Color { get; }
-    public float Scale { get; }
     public void OnCreation(OverlayIconInstance instance);
 }

@@ -29,6 +29,8 @@ public class ModConfig : ConfigFile
     public bool AutosaveStructureOnLoad = true;
     [Toggle("Autosave structures periodically")]
     public bool AutosaveStructureOverTime = true;
+    [Slider("3D icons fadeout distance", 0f, 5, DefaultValue = 2, Step = 0.1f, Format = "{0:F1}m")]
+    public float OverlayIconsFadeDistance = 3f;
     [Slider("Autosave delay (minutes)", 1, 10, DefaultValue = 3, Step = 1, Format = "{0} minutes")]
     public int AutosaveDelay = 3;
     [Slider("Max autosave files", 3, 500, DefaultValue = 100, Step = 1)]

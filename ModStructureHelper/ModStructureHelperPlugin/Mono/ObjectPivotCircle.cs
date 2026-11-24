@@ -27,7 +27,6 @@ public class ObjectPivotCircle : MonoBehaviour, IOverlayIconData, ISelectionList
     public Sprite Icon => _selecting ? GetSelectedSprite() : GetDefaultSprite();
     public Vector3 Position => transform.position;
     public Color Color => color;
-    public float Scale => 5f / Vector3.Distance(MainCameraControl.main.transform.position, transform.position);
 
     private string _objectName;
     

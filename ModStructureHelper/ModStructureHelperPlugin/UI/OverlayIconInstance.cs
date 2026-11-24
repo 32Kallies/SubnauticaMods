@@ -26,8 +26,9 @@ public class OverlayIconInstance : MonoBehaviour
 
     private void UpdateData(bool firstTime)
     {
-        var screenPoint = SNCameraRoot.main.mainCam.WorldToScreenPoint(_data.Position);
-        SetPositionAndScale(screenPoint);
+        var worldPosition = _data.Position;
+        var screenPoint = SNCameraRoot.main.mainCam.WorldToScreenPoint(worldPosition);
+        SetPositionAndScale(screenPoint, worldPosition);
         labelText.text = _data.Label;
         iconImage.sprite = _data.Icon;
         var color = _data.Color.WithAlpha(GetDistanceAlphaBlend(screenPoint.z));
@@ -35,12 +36,18 @@ public class OverlayIconInstance : MonoBehaviour
         labelText.color = color;
     }
 
-    private void SetPositionAndScale(Vector3 screenPoint)
+    private void SetPositionAndScale(Vector3 screenPoint, Vector3 worldPosition)
     {
         var x = screenPoint.x - (float)Screen.width / 2;
         var y = screenPoint.y - (float)Screen.height / 2;
         transform.localPosition = new Vector3(x, y, 0f);
-        transform.localScale = Vector3.one * _data.Scale;
+        var scale = GetScale(Vector3.Distance(MainCameraControl.main.transform.position, worldPosition));
+        transform.localScale = Vector3.one * scale;
+    }
+
+    private float GetScale(float distance)
+    {
+        return 5f / distance;
     }
 
     private void Update()
@@ -48,17 +55,17 @@ public class OverlayIconInstance : MonoBehaviour
         UpdateData(false);
     }
     
-    
     private float GetDistanceAlphaBlend(float distance)
     {
         if (distance < KMinDistance)
         {
             return 0f;
         }
-        if (distance > KMinDistance + KTransitionDistance)
+        
+        if (distance > Plugin.ModConfig.OverlayIconsFadeDistance + KMinDistance)
         {
             return 1f;
         }
-        return Mathf.Clamp((distance - KMinDistance) / KTransitionDistance, 0f, 1f);
+        return Mathf.Clamp((distance - Plugin.ModConfig.OverlayIconsFadeDistance - KMinDistance + KTransitionDistance) / KTransitionDistance, 0f, 1f);
     }
 }
