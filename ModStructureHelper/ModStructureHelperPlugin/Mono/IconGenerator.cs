@@ -4,8 +4,10 @@ using System.Collections;
 using System.Linq;
 using ModStructureHelperPlugin.EntityHandling.Icons;
 using ModStructureHelperPlugin.Utility;
+using mset;
 using UnityEngine;
 using UWE;
+using Object = System.Object;
 
 namespace ModStructureHelperPlugin.Mono;
 
@@ -25,6 +27,8 @@ public class IconGenerator : MonoBehaviour
     private static Sprite _soundSprite;
     private static Sprite _atmosphereVolumeSprite;
     public static EntityIcon ErrorIcon { get; private set; }
+
+    private static GameObject _skyPrefabForRendering;
 
     private const float TimeOutTime = 1f;
 
@@ -72,6 +76,9 @@ public class IconGenerator : MonoBehaviour
         if (!_spritesLoaded)
             LoadSprites();
 
+        if (_skyPrefabForRendering == null)
+            yield return FetchSkyPrefab();
+
         yield return SafeGenerateIcon(GenerateIconForClassId(classId, output), classId, TimeOutTime, output);
     }
 
@@ -118,6 +125,11 @@ public class IconGenerator : MonoBehaviour
         _instance.sceneParent.SetActive(true);
         var model = UWE.Utils.InstantiateDeactivated(prefab);
         ComponentStripUtils.StripComponents(model);
+        foreach (var skyApplier in model.GetComponentsInChildren<SkyApplier>())
+        {
+            skyApplier.anchorSky = Skies.Custom;
+            skyApplier.customSkyPrefab = _skyPrefabForRendering;
+        }
         model.SetActive(true);
 
         if (TryUseSpecialIcon(model, out var specialIcon))
@@ -252,6 +264,26 @@ public class IconGenerator : MonoBehaviour
 
         Icons[classId] = ErrorIcon;
         output.Icon = ErrorIcon;
+    }
+
+    private static IEnumerator FetchSkyPrefab()
+    {
+        var task = CraftData.GetPrefabForTechTypeAsync(TechType.Exosuit);
+        yield return task;
+        var exosuit = task.GetResult();
+        var originalSky = exosuit.GetComponents<SkyApplier>().FirstOrDefault(s => s.customSkyPrefab != null);
+        if (originalSky != null)
+        {
+            var skyPrefab = Instantiate(originalSky.customSkyPrefab);
+            skyPrefab.name = "IconGeneratorSky";
+            var sky = skyPrefab.GetComponent<Sky>();
+            sky.affectedByDayNightCycle = false;
+            _skyPrefabForRendering = skyPrefab;
+        }
+        else
+        {
+            Plugin.Logger.LogWarning("Could not find SkyApplier with interior sky prefab on Exosuit");
+        }
     }
 
     private static bool TryUseSpecialIcon(GameObject gameObject, out EntityIcon specialIcon)
