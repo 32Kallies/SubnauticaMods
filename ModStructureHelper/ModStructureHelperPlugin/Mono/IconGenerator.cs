@@ -104,14 +104,42 @@ public class IconGenerator : MonoBehaviour
             // Create icon generator
             var obj = new GameObject("Icon Generator");
             _instance = obj.AddComponent<IconGenerator>();
+            
+            // Set up camera and render texture
             var camObj = new GameObject("Icon generator camera");
+            camObj.SetActive(false);
             var camera = camObj.AddComponent<Camera>();
             camera.enabled = false;
-            var renderTexture = new RenderTexture(256, 256, 0, RenderTextureFormat.Default);
+            var renderTexture = new RenderTexture(256, 256, 32, RenderTextureFormat.Default);
             _instance.renderTexture = renderTexture;
+            
+            // Set camera settings
             camera.targetTexture = renderTexture;
             camera.clearFlags = CameraClearFlags.SolidColor;
             camera.backgroundColor = Color.clear;
+            camera.renderingPath = RenderingPath.DeferredShading;
+            camera.allowMSAA = false;
+            camera.cullingMask = 1711275799;
+            camera.depthTextureMode = DepthTextureMode.Depth;
+            camera.farClipPlane = 900;
+
+            // Add WBOIT for transparency
+            var mainCamera = MainCamera.camera;
+            if (mainCamera != null)
+            {
+                var wboit = camera.gameObject.AddComponent<IconGeneratorWboit>();
+                wboit.camera = camera;
+                var originalWboit = MainCamera.camera.GetComponent<WBOIT>();
+                wboit.compositeShader = originalWboit.compositeShader;
+            }
+            else
+            {
+                Plugin.Logger.LogError("MainCamera not found; cannot initialize WBOIT with the required materials");
+            }
+            
+            camObj.SetActive(true);
+            
+            // Create scene
             var sceneParent = new GameObject("Scene parent");
             camObj.transform.parent = sceneParent.transform;
             camObj.transform.localEulerAngles = new Vector3(0, 210, 0);
@@ -133,7 +161,6 @@ public class IconGenerator : MonoBehaviour
             }
         }
 
-        _instance.cam.enabled = true;
         _instance.sceneParent.SetActive(true);
         var model = UWE.Utils.InstantiateDeactivated(prefab);
         ComponentStripUtils.StripComponents(model);
@@ -147,24 +174,56 @@ public class IconGenerator : MonoBehaviour
             yield break;
         }
 
+        // Destroy model early on a 0.5-second timer in case something fails (to avoid populating the world)
         Destroy(model, 0.5f);
         model.transform.position = _instance.transform.position;
         var bounds = GetObjectBounds(model);
         var distance = Mathf.Clamp(Mathf.Max(bounds.extents.x, bounds.extents.z), 1, 60);
         _instance.cam.transform.position = bounds.center - _instance.cam.transform.forward * distance * 2;
         _instance.cam.farClipPlane = 200;
+        
+        // allow some limited initialization (for child prefab spawners)
         yield return null;
-        RenderTexture.active = _instance.renderTexture;
-        Texture2D tex = new Texture2D(256, 256, TextureFormat.RGBA32, false, true);
-        tex.ReadPixels(new Rect(0, 0, tex.width, tex.height), 0, 0, false);
-        tex.Apply(false);
-        _instance.sceneParent.SetActive(false);
-        Destroy(model);
-        var sprite = Sprite.Create(tex, new Rect(0, 0, 256, 256), new Vector2(0.5f, 0.5f));
-        _instance.cam.enabled = false;
+
+        var previousTarget = RenderTexture.active;
+        var target = _instance.renderTexture;
+        RenderTexture.active = target;
+        
+        Sprite sprite;
+        try
+        {
+            sprite = GenerateIconSprite(target);
+        }
+        catch (Exception e)
+        {
+            Plugin.Logger.LogError($"Exception caught while generating icon for '{classId}': " + e);
+            yield break;
+        }
+        finally
+        {
+            RenderTexture.active = previousTarget;
+            Destroy(model);
+        }
+        
+        if (_instance.sceneParent)
+            _instance.sceneParent.SetActive(false);
+        
         var icon = new EntityIconBasic(sprite);
         Icons[classId] = icon;
         output.Icon = icon;
+    }
+
+    private static Sprite GenerateIconSprite(RenderTexture target)
+    {
+        var tex = new Texture2D(target.width, target.height, TextureFormat.RGBA32, false, true);
+
+        _instance.cam.Render();
+        
+        tex.ReadPixels(new Rect(0, 0, tex.width, tex.height), 0, 0, false);
+        tex.Apply(false);
+        
+        var sprite = Sprite.Create(tex, new Rect(0, 0, 256, 256), new Vector2(0.5f, 0.5f));
+        return sprite;
     }
 
     private static IEnumerator SafeGenerateIcon(IEnumerator inner, string classId, float timeOutDuration, IconOutput output)
