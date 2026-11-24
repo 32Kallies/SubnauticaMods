@@ -40,5 +40,6 @@ public class Plugin : BaseUnityPlugin
         
         AutosaveUtils.ClearOldAutoSaves();
         StructureHelperInput.RegisterLocalization();
+        ConsoleCommandsHandler.RegisterConsoleCommands(typeof(Commands));
     }
 }
