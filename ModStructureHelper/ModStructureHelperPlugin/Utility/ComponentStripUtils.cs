@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
 namespace ModStructureHelperPlugin.Utility;
@@ -23,7 +25,9 @@ public static class ComponentStripUtils
         typeof(Canvas),
         typeof(FMOD_CustomEmitter),
         typeof(VFXVolumetricLight),
-        typeof(AtmosphereVolume)
+        typeof(AtmosphereVolume),
+        typeof(UIBehaviour),
+        typeof(LayoutGroup)
     };
 
     public static void StripComponents(GameObject obj)
