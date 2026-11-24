@@ -117,12 +117,13 @@ public class PaintTool : ToolBase
 
     private void CreatePreview()
     {
-        _currentPreview = Instantiate(_selectedPrefab);
+        _currentPreview = UWE.Utils.InstantiateDeactivated(_selectedPrefab);
         var lwe = _currentPreview.GetComponent<LargeWorldEntity>();
         if (lwe) lwe.enabled = false;
         Destroy(lwe);
         _currentPreview.GetComponentsInChildren<Renderer>().ForEach(renderer => renderer.SetFadeAmount(0.5f));
         ObjectStripper.StripAllChildren(_currentPreview);
+        _currentPreview.SetActive(true);
     }
 
     private void UpdateBrushPosition()

@@ -18,7 +18,9 @@ public static class ObjectStripper
         typeof(UIBehaviour),
         typeof(Canvas),
         typeof(CanvasRenderer),
-        typeof(SkyApplier)
+        typeof(SkyApplier),
+        typeof(LODGroup),
+        typeof(Animator)
     };
     
     public static void StripAllChildren(GameObject obj)
@@ -33,8 +35,13 @@ public static class ObjectStripper
             }
 
             if (whitelisted) continue;
+            // The following components are often relied on by other components, so to be safe, they will also be
+            // manually disabled in case they can't be removed due to the chance of RequireComponent attributes existing
             switch (component)
             {
+                case Collider col:
+                    col.enabled = false;
+                    break;
                 case Rigidbody rb:
                     rb.isKinematic = true;
                     break;
