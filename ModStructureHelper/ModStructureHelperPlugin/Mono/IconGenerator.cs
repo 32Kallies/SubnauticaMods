@@ -37,6 +37,16 @@ public class IconGenerator : MonoBehaviour
         return false;
     }
 
+    public static void ClearIconCache()
+    {
+        foreach (var icon in Icons.Values)
+        {
+            if (icon == null) continue;
+            Destroy(icon.Sprite);
+        }
+        Icons.Clear();
+    }
+
     public static bool HasIcon(string classId) => Icons.ContainsKey(classId);
     
     private static void LoadSprites()
