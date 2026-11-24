@@ -29,7 +29,7 @@ public class IconGenerator : MonoBehaviour
 
     private static readonly Color SoundColor = new Color(0.99f, 0.75f, 0.03f);
 
-    private const string ShaderToIgnore = "UWE/Particles/WBOIT-FakeVolumetricLight";
+    private const string ShaderToIgnoreInBoundsCalc = "UWE/Particles/WBOIT-FakeVolumetricLight";
 
     public static bool TryGetIcon(string classId, out EntityIcon icon)
     {
@@ -111,8 +111,7 @@ public class IconGenerator : MonoBehaviour
             _instance.transform.localPosition = new Vector3(0, 3000, 0);
         }
 
-        if (Plugin.ModConfig.UseItemIconsInBrowser &&
-            CraftData.entClassTechTable.TryGetValue(classId, out var techType))
+        if (Plugin.ModConfig.UseItemIconsInBrowser && CraftData.entClassTechTable.TryGetValue(classId, out var techType))
         {
             var itemSprite = SpriteManager.Get(techType, null);
             if (itemSprite != null)
@@ -228,7 +227,7 @@ public class IconGenerator : MonoBehaviour
         foreach (var renderer in obj.GetComponentsInChildren<Renderer>())
         {
             var material = renderer.sharedMaterial;
-            if (material != null && material.shader != null && material.shader.name.Equals(ShaderToIgnore))
+            if (material != null && material.shader != null && material.shader.name.Equals(ShaderToIgnoreInBoundsCalc))
             {
                 continue;
             }
