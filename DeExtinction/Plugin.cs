@@ -45,16 +45,21 @@ public class Plugin : BaseUnityPlugin
         Harmony.CreateAndPatchAll(Assembly, $"{PluginInfo.PLUGIN_GUID}");
         Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
 
-        UWE.CoroutineHost.StartCoroutine(AddEcoTargetTypesToClownPincherFood());
-        #if SN1
-        UWE.CoroutineHost.StartCoroutine(ModifyBloomPlankton());
-        #endif
+        WaitScreenHandler.RegisterEarlyAsyncLoadTask(PluginInfo.PLUGIN_NAME, _ => ModifyBaseGamePrefabs());
 
         CreatureSpawnsToggler.CollectCreatures();
         CreatureSpawnsToggler.CreateModOptions(Config);
         CreatureSpawns.RegisterLootDistribution();
         CreatureSpawns.RegisterCoordinatedSpawns();
         CreatureSpawns.ModifyBaseGameSpawns();
+    }
+
+    private IEnumerator ModifyBaseGamePrefabs()
+    {
+        yield return AddEcoTargetTypesToClownPincherFood();
+        #if SUBNAUTICA
+        yield return ModifyBloomPlankton();
+        #endif
     }
 
     private IEnumerator AddEcoTargetTypesToClownPincherFood()
@@ -64,10 +69,11 @@ public class Plugin : BaseUnityPlugin
             var task = CraftData.GetPrefabForTechTypeAsync(techType);
             yield return task;
             var result = task.GetResult();
-            if (result) result.AddComponent<EcoTarget>().type = ClownPincherFoodEcoTargetType;
+            if (result) result.EnsureComponent<EcoTarget>().type = ClownPincherFoodEcoTargetType;
         }
     }
 
+#if SUBNAUTICA
     private IEnumerator ModifyBloomPlankton()
     {
         var task = CraftData.GetPrefabForTechTypeAsync(TechType.Bloom);
@@ -77,6 +83,7 @@ public class Plugin : BaseUnityPlugin
         var locomotion = result.GetComponent<Locomotion>();
         locomotion.forwardRotationSpeed = 0.001f;
         locomotion.upRotationSpeed = 0.001f;
-        result.GetComponent<Rigidbody>().maxAngularVelocity = 1;
+        result.EnsureComponent<LimitAngularVelocity>().maxAngularVelocity = 1;
     }
+#endif
 }

@@ -128,7 +128,7 @@ internal static class CreaturePrefabManager
             "Jasper_Popup");
         JasperThalassaceanEgg = CreateEggPrefab("JasperThalassaceanEgg", "JasperThalassaceanEggPrefab",
             "JasperThalassaceanEgg_Icon", new Vector2int(3, 3), JasperThalassacean.PrefabInfo.TechType, 2, true);
-        JasperThalassacean.EggInfo = StellarThalassaceanEgg;
+        JasperThalassacean.EggInfo = JasperThalassaceanEgg;
         JasperThalassacean.Register();
         CreatureDataUtils.SetAcidImmune(JasperThalassacean.PrefabInfo.TechType);
 
