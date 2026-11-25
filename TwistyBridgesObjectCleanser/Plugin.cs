@@ -10,7 +10,7 @@ using UnityEngine;
 namespace TwistyBridgesObjectCleanser;
 
 [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
-[BepInDependency("com.snmodding.nautilus")]
+[BepInDependency("com.snmodding.nautilus", "1.0.0.57")]
 public sealed class Plugin : BaseUnityPlugin
 {
     public new static ManualLogSource Logger { get; private set; }
@@ -61,6 +61,25 @@ public sealed class Plugin : BaseUnityPlugin
                     "3dbab1b9-cc52-4da4-8633-89b33add18f4", "e8047056-e202-49b3-829f-7458615103ac"
                 },
                 Color = new Color(0.2f, 0.4f, 1, 0.3f)
+            },
+            new(10)
+            {
+                Identifier = "AnyAtmosphereVolumes",
+                ClassIds = new[]
+                {
+                    "371c2241-7333-4827-a220-39bb4b6686f2", "371c2241-7333-4827-a220-39bb4b6686f2"
+                },
+                Color = new Color(0.5f, 0.8f, 0.7f, 0.3f)
+            },
+            new(10)
+            {
+                Identifier = "GiantCoralTubes",
+                ClassIds = new[]
+                {
+                    "691723cf-d5e9-482f-b5af-8491b2a318b1", "f0295655-8f4f-4b18-b67d-925982a472d7",
+                    "06562999-e575-4b02-b880-71d37616b5b9"
+                },
+                Color = new Color(0.9f, 0.8f, 0.1f, 0.3f)
             },
         };
 
