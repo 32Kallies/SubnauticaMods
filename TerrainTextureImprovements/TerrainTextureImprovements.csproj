@@ -9,7 +9,6 @@
         <RootNamespace>TerrainTextureImprovements</RootNamespace>
         <BepInExPluginName>Terrain Texture Improvements</BepInExPluginName>
         <BepInExPluginGuid>com.Kallie23.TerrainTextureImprovements</BepInExPluginGuid>
-        
 
         <RestoreAdditionalProjectSources>
             https://api.nuget.org/v3/index.json;
