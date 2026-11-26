@@ -11,6 +11,7 @@ namespace TwistyBridgesObjectCleanser;
 
 [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
 [BepInDependency("com.snmodding.nautilus", "1.0.0.57")]
+[BepInDependency("com.kallie23.TwistyBridgesPack")]
 public sealed class Plugin : BaseUnityPlugin
 {
     public new static ManualLogSource Logger { get; private set; }
@@ -97,6 +98,7 @@ public sealed class Plugin : BaseUnityPlugin
 
         StructureRegistrationUtils.RegisterStructures(StructureRegistrationUtils.GetStructuresFolderPath(Assembly.GetExecutingAssembly()));
         ConsoleCommandsHandler.RegisterConsoleCommands(typeof(Commands));
+        
         Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
     }
 
