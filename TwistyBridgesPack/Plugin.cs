@@ -63,6 +63,8 @@ public class Plugin : BaseUnityPlugin
         var atlas = atlasResult.Get();
 
         RibbonPlant.Register(atlas);
+        
+        TwistyBridgesBiome.Register();
     }
 
     private LargeWorldEntity.CellLevel GetBestCellLevelForPrefab(string prefab)

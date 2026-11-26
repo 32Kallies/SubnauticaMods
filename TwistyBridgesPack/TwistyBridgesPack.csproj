@@ -3,9 +3,9 @@
     <PropertyGroup>
         <TargetFramework>net472</TargetFramework>
         <AssemblyName>TwistyBridgesPack</AssemblyName>
-        <Version>1.0.3</Version>
+        <Version>1.0.4</Version>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-        <LangVersion>11</LangVersion>
+        <LangVersion>15</LangVersion>
         <RootNamespace>TwistyBridgesPack</RootNamespace>
         <BepInExPluginGuid>com.kallie23.TwistyBridgesPack</BepInExPluginGuid>
         <BepInExPluginName>Twisty Bridges Prop Pack for SN1</BepInExPluginName>
@@ -24,7 +24,7 @@
         <PackageReference Include="Unity.InputSystem" Version="1.4.1" IncludeAssets="compile"/>
         <PackageReference Include="Subnautica.GameLibs" Version="82304.0.0-r.0"/>
         <PackageReference Include="PolySharp" Version="1.15.0"/>
-        <PackageReference Include="Subnautica.Nautilus" Version="1.*-*" PrivateAssets="all"/>
+        <PackageReference Include="Subnautica.Nautilus" Version="1.0.0-pre.57" PrivateAssets="all"/>
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
