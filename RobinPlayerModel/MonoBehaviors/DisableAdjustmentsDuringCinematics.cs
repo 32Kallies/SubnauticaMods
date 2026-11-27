@@ -21,6 +21,9 @@ public class DisableAdjustmentsDuringCinematics : MonoBehaviour
 
     private void Update()
     {
+        if (EscapePod.main && EscapePod.main.introCinematic && EscapePod.main.introCinematic.cinematicModeActive)
+            return;
+        
         bool updateNeeded = false;
         
         bool state = Player.main.cinematicModeActive;
