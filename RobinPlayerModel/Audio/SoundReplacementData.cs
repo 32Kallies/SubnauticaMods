@@ -40,7 +40,7 @@ public sealed class SoundReplacementData
             string[] soundClips = new string[values.Length - 2];
             for (int i = 0; i < soundClips.Length; i++)
             {
-                soundClips[i] = values[i + 2].Trim();
+                soundClips[i] = values[i + 2].Trim('"').Trim();
             }
 
             var path = values[1];
@@ -49,7 +49,7 @@ public sealed class SoundReplacementData
             // Create entry
             Entries.Add(new Entry
             {
-                DisplayName = values[0].Trim(),
+                DisplayName = values[0].Trim('"').Trim(),
                 FmodPath = path,
                 SoundClipNames = soundClips
             });
