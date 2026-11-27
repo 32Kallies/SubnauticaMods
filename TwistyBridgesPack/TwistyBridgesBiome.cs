@@ -25,8 +25,8 @@ public static class TwistyBridgesBiome
                 emissive = new Color(0.24f, 0.9f, 0.886f, 1),
                 emissiveScale = 0.004f,
                 startDistance = 20,
-                sunlightScale = 1.5f,
-                ambientScale = 1,
+                sunlightScale = 1f,
+                ambientScale = 1.3f,
                 temperature = 16
             },
             sky);
