@@ -1,0 +1,21 @@
+using UnityEngine;
+
+namespace RobinPlayerModel.DataObjects;
+
+public sealed class BoneAdjustment
+{
+    public Vector3 Position { get; init; }
+    public AdjustmentMode PositionAdjustmentMode { get; init; }
+    
+    public Vector3 Rotation { get; init; }
+    public AdjustmentMode RotationAdjustmentMode { get; init; }
+    
+    public bool DisableInThirdPerson { get; init; }
+}
+
+public enum AdjustmentMode
+{
+    None,
+    Offset,
+    Replacement
+}
