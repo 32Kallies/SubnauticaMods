@@ -42,12 +42,15 @@ public sealed class SoundReplacementData
             {
                 soundClips[i] = values[i + 2].Trim();
             }
+
+            var path = values[1];
+            path = path.Trim('"').Trim();
             
             // Create entry
             Entries.Add(new Entry
             {
                 DisplayName = values[0].Trim(),
-                FmodPath = values[1].Trim(),
+                FmodPath = path,
                 SoundClipNames = soundClips
             });
             
