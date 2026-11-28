@@ -44,18 +44,33 @@ public static class SuitLibCompat
     public static void RefreshSuitLibForNewPlayerModelIfInstalled()
     {
         if (!IsSuitLibInstalled()) return;
+        RefreshInternal();
+    }
+
+    private static void RefreshInternal()
+    {
         TextureCacheManager.RequestTextureCacheReset();
     }
 
     public static void RegisterCacheHoldIfInstalled(Func<bool> completionCondition)
     {
         if (!IsSuitLibInstalled()) return;
+        RegisterHoldInternal(completionCondition);
+    }
+
+    private static void RegisterHoldInternal(Func<bool> completionCondition)
+    {
         CacheHoldManager.RegisterCacheHold(completionCondition);
     }
 
     public static void OverrideSuitMaterialIndicesIfInstalled()
     {
         if (!IsSuitLibInstalled()) return;
+        OverrideMaterialsInternal();
+    }
+
+    private static void OverrideMaterialsInternal()
+    {
         MaterialIndexManager.SetBodyTextureIndexRemap(ModdedSuitsManager.VanillaModel.Dive, [1, 2]);
         MaterialIndexManager.SetArmTextureIndexRemap(ModdedSuitsManager.VanillaModel.Dive, [0, 3]);
         MaterialIndexManager.SetGloveTextureIndexRemap(ModdedSuitsManager.VanillaModel.Dive, [0, 1]);
