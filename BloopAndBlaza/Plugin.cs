@@ -77,13 +77,11 @@ public class Plugin : BaseUnityPlugin
         {
             CoordinatedSpawnsHandler.RegisterCoordinatedSpawnsForOneTechType(blazaInfo.TechType, new[]
             {
-                new SpawnLocation(new Vector3(-946, -315, -537)),
-                new SpawnLocation(new Vector3(-757, -742, -93)),
-                new SpawnLocation(new Vector3(-523, -782, 144)),
-                new SpawnLocation(new Vector3(-666, -749, 510)),
-                new SpawnLocation(new Vector3(-718, -1127, 123)),
-                new SpawnLocation(new Vector3(-1144, -200f, 1147)),
-                new SpawnLocation(new Vector3(64, -236, -292))
+                new SpawnLocation(new Vector3(-946, -315, -537)), // Blood kelp trench
+                new SpawnLocation(new Vector3(-523, -782, 144)), // Lost river
+                new SpawnLocation(new Vector3(-718, -1127, 123)), // ILZ
+                new SpawnLocation(new Vector3(-1144, -200f, 1147)), // Dunes
+                new SpawnLocation(new Vector3(-50, -1150, -255)) // ILZ
             });
         }
 
@@ -110,22 +108,20 @@ public class Plugin : BaseUnityPlugin
         {
             CoordinatedSpawnsHandler.RegisterCoordinatedSpawnsForOneTechType(bloopInfo.TechType, new[]
             {
-                new SpawnLocation(new Vector3(650, -70, 390))
+                new SpawnLocation(new Vector3(650, -70, 390)) // Mushroom Forest
             });
             CoordinatedSpawnsHandler.RegisterCoordinatedSpawnsForOneTechType(deepBloopInfo.TechType, new[]
             {
-                new SpawnLocation(new Vector3(-880, -280, -1340)),
-                new SpawnLocation(new Vector3(-1650, -60, -690)),
-                new SpawnLocation(new Vector3(1260, -65, -715)),
-                new SpawnLocation(new Vector3(-50, -1150, -255)),
-                new SpawnLocation(new Vector3(-188, -233, 1540))
+                new SpawnLocation(new Vector3(-1650, -60, -690)), // Void
+                new SpawnLocation(new Vector3(1260, -65, -715)), // Behind Aurora
+                new SpawnLocation(new Vector3(-188, -233, 1540)) // Northern Blood Kelp
             });
         }
         
         CoordinatedSpawnsHandler.RegisterCoordinatedSpawnsForOneTechType(grandBloopInfo.TechType, new[]
         {
-            new SpawnLocation(new Vector3(1450, -370, -1370)),
-            new SpawnLocation(new Vector3(-1987, -454, -220))
+            new SpawnLocation(new Vector3(1450, -370, -1370)), // Void
+            new SpawnLocation(new Vector3(-1987, -454, -220)) // Void
         });
 
         var bloop = new Bloop(bloopInfo, AssetBundle.LoadAsset<GameObject>("Bloop_Prefab"), false);
